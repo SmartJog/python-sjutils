@@ -1,0 +1,4 @@
+#!/bin/sh
+
+dpkg -L python2.3-sjutils | awk '$0~/\.py$/ {print $0"c\n" $0"o"}' | xargs rm -f >&2
+
