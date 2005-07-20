@@ -28,12 +28,17 @@ def delete_recursive(path):
 class Logger:
         "Sjutils log class"
         _file = ""
-        def __init__(self, logfile, label)
-                _file = open(logfile, "a", 1)
-                _label = label
+        _label = ""
+        
+        def __init__(self, logfile, label):
+                self._file = open(logfile, "a", 1)
+                self._label = label
                 
-        def write(self, str)
-                _file.write(time.ctime() + " " + _label + " " + str)
+        def write(self, str):
+                t = time.gmtime()
+                ts = "%02d/%02d/%02d GMT %02d:%02d:%02d " % (t[2], t[1], t[0], t[3], t[4], t[5])
+                self._file.write(ts + "[" + self._label + "] " + str + "\n")
 
-        def close(self)
-                _file.close()
+        def close(self):
+                self._file.close()
+

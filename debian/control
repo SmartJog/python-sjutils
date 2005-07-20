@@ -1,11 +1,11 @@
 Source: python-sjutils
 Priority: optional
 Maintainer: Romain DEGEZ <romain.degez@smartjog.com>
-Build-Depends: debhelper (>= 4.0.0)
+Build-Depends: debhelper (>= 4.0.0), python
 Standards-Version: 3.6.1
 
 Package: python2.3-sjutils
-Architecture: any
+Architecture: all
 Depends: python2.3
 Description: Python version of libsjutils
  Python version of libsjutils
