@@ -1,0 +1,11 @@
+#!/bin/sh
+PYTHON="python2.3"
+if which $PYTHON >/dev/null 2>&1; then
+    DIRLIST="/usr/lib/$PYTHON/site-packages/sjutils"
+    for i in $DIRLIST ; do
+        echo "Bytecompiling $DIRLIST"
+        $PYTHON -E -O /usr/lib/$PYTHON/compileall.py -q $i
+        $PYTHON -E /usr/lib/$PYTHON/compileall.py -q $i
+    done
+fi
+

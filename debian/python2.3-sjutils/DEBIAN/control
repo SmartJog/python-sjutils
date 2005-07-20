@@ -1,0 +1,10 @@
+Package: python2.3-sjutils
+Version: 1.0-2
+Priority: optional
+Architecture: all
+Depends: python2.3
+Installed-Size: 68
+Maintainer: Romain DEGEZ <romain.degez@smartjog.com>
+Source: python-sjutils
+Description: Python version of libsjutils
+ Python version of libsjutils
