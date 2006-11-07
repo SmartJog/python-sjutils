@@ -1,11 +1,16 @@
 Source: python-sjutils
+XS-Python-Version: all
 Priority: optional
+Section: smartjog
 Maintainer: Romain DEGEZ <romain.degez@smartjog.com>
-Build-Depends: debhelper (>= 4.0.0), python
-Standards-Version: 3.6.1
+Build-Depends: cdbs (>= 0.4.43), debhelper (>= 5.0.38), python-central (>= 0.5.6), python-all-dev (>= 2.3.5-11)
+Standards-Version: 3.7.2
 
-Package: python2.3-sjutils
+Package: python-sjutils
+Replaces: python2.3-sjutils
+Conflicts: python2.3-sjutils
+XB-Python-Version: ${python:Versions}
 Architecture: all
-Depends: python2.3
-Description: Python version of libsjutils
- Python version of libsjutils
+Depends: ${python:Depends}
+Description: SmartJog sjutils
+ several python utils for SmartJog tools

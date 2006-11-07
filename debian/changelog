@@ -1,3 +1,10 @@
+python-sjutils (1.1-1) unstable; urgency=low
+
+  * add python setup.py
+  * new cdbs + pycentral packaging
+
+ -- Laurent Corbes <laurent.corbes@smartjog.com>  Tue,  7 Nov 2006 14:30:14 +0100
+
 python-sjutils (1.0-2) unstable; urgency=low
 
   * Add a Logger() class with write() method 
