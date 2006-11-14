@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os, string, dircache, time
+import os, string, dircache, time, sys
 
 def ismd5(DIR):
         hex="0123456789abcdef"
@@ -38,6 +38,9 @@ class Logger:
                 t = time.gmtime()
                 ts = "%02d/%02d/%02d GMT %02d:%02d:%02d " % (t[2], t[1], t[0], t[3], t[4], t[5])
                 self._file.write(ts + "[" + self._label + "] " + str + "\n")
+
+        def redirect_stdout_stderr(self):
+                sys.stdout = sys.stderr = self._file
 
         def close(self):
                 self._file.close()
