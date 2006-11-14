@@ -1,3 +1,9 @@
+python-sjutils (1.2.0-1) unstable; urgency=low
+
+  * add uncommited Logger.redirect_stdout_stderr()
+
+ -- Laurent Corbes <laurent.corbes@smartjog.com>  Tue, 14 Nov 2006 17:30:41 +0100
+
 python-sjutils (1.1-1) unstable; urgency=low
 
   * add python setup.py
