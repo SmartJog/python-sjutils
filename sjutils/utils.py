@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os, string, dircache, time, sys
+import os, string, dircache, time, sys, md5
 
 def ismd5(DIR):
         hex="0123456789abcdef"
@@ -10,6 +10,16 @@ def ismd5(DIR):
                 if string.find(hex, a) == -1:
                         return False
         return True
+
+def md5sum(f):
+	f = file(f)
+	md = md5.new()
+	tmp = f.read(8192)
+	while tmp:
+		md.update(tmp)
+		tmp = f.read(8192)
+	f.close()
+	return md.hexdigest()
 
 
 def delete_recursive(path):

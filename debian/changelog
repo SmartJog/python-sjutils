@@ -1,3 +1,9 @@
+python-sjutils (9cur) unstable; urgency=low
+
+  * Add md5sum function
+
+ -- Laurent Corbes <laurent.corbes@smartjog.com>  Wed, 28 Mar 2007 13:36:36 +0200
+
 python-sjutils (1.2.0-1) unstable; urgency=low
 
   * add uncommited Logger.redirect_stdout_stderr()
