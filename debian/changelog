@@ -1,4 +1,4 @@
-python-sjutils (9cur) unstable; urgency=low
+python-sjutils (1.3.0) rxtx; urgency=low
 
   * Add md5sum function
 
