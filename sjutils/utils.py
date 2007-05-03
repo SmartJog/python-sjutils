@@ -35,15 +35,20 @@ def delete_recursive(path):
                         os.remove(file_or_dir)
         os.rmdir(path)
 
+def get_dcp_directory():
+    return '/mnt/space/interfaces/in_ftp/SmartDCP'
+
+def get_dcp_workdir():
+    return '/mnt/space/interfaces/in_ftp/.workdir/SmartDCP'
+
 def get_input_dcps():
     """ Return a dirpath list of all input DCP """
 
     dirlist = []
     try:
-        dcp_dir = '/mnt/space/interfaces/in_ftp/.workdir/DCP'
-        files = os.listdir(dcp_dir)
+        files = os.listdir(get_dcp_workdir())
         for file in files:
-            path = os.path.join(dcp_dir, file)
+            path = os.path.join(get_dcp_workdir(), file)
             if os.path.isdir(path):
                 dirlist.append(path)
     except:
@@ -102,6 +107,16 @@ def dcp_create_tar(dirpath):
         return tar_path
     except Exception, error:
         return None
+
+def dcp_create_ingest_demand_file(dcpname):
+    path = os.path.join(get_dcp_workdir(), dcpname, 'INGEST_IT')
+    try:
+        fd = open(path, 'w')
+        fd.close()
+    except:
+        return False
+    else:
+        return True
 
 class Logger:
         "Sjutils log class"
