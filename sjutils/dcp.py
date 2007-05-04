@@ -24,7 +24,7 @@ def get_input_dcps():
     return dirlist
 
 def dcp_is_complete(dirpath):
-    """ Search the ASSETMAP and all needed files of a DCP
+    """ Search the ASSETMAP.xml and all needed files of a DCP
     Return two object :
     - boolean : True if DCP is complete
     - dictionnay : all files needed ( { filename : found } )
@@ -32,15 +32,25 @@ def dcp_is_complete(dirpath):
     If dictionnary is empty, maybe the ASSETMAP file was not found"""
 
     filedic = {}
-    # ASSETMAP contain all files informations
-    assetmap_path = os.path.join (dirpath, "ASSETMAP")
-    if not os.path.isfile( assetmap_path ):
-        return False, filedic
-    try:
-        file = open(assetmap_path, 'r')
-        txt = file.read()
-    except IOError, inst:
-        return False, filedic
+    # ASSETMAP.xml contain all files informations
+    assetmap_list = ( 'ASSETMAP', 'ASSETMAP.xml', 'ASSETMAP.XML', 'assetmap', 'assetmap.xml' )
+    txt = ""
+    found = False
+    for assetmap in assetmap_list:
+        assetmap_path = os.path.join (dirpath, assetmap)
+        if not os.path.isfile( assetmap_path ):
+            continue
+        try:
+            file = open(assetmap_path, 'r')
+            txt = file.read()
+        except IOError, inst:
+            continue
+        else:
+            found = True
+            break
+
+    if not found:
+        return False, filefic
 
     # We search all files needed by the DCP
     file_regex = re.compile("<(am:)?Path>(file:///)?(.*)</(am:)?Path>")
