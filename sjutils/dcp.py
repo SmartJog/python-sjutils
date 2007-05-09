@@ -177,6 +177,8 @@ def get_dcp_infos(dirpath):
             hash = get_dcp_hash_file(filepath)
             if files[id][1] == hash:
                 files[id][3] = True
+            elif files[id][1] and id not in pklsList.keys():
+                files[id][3] = False
     if error:
         return False, False, files
     else:
