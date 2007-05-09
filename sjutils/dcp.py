@@ -57,9 +57,14 @@ def get_dcp_hash_file(path):
     try:
         hash = open(path + '.hash', 'r').readline()
     except:
-        fs = open(path, 'r').read()
-        sh = sha.new(fs).digest()
-        hash = base64.encodestring(sh)
+        sh = sha.new()
+        fd = open(path, 'r')
+        buf = fd.read(16384)
+        while buf:
+            sh.update(buf)
+            buf = fd.read(16384)
+
+        hash = base64.encodestring(sh.digest())
         hash = hash[:-1] # delete the carriage return...
         try:
             fd = open(path + '.hash', 'w')
