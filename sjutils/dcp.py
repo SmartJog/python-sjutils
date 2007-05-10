@@ -52,21 +52,6 @@ def dcp_create_ingest_demand_file(dcpname):
     else:
         return True
 
-def sha1sum(path):
-    sha1 = None
-    try:
-        sh = sha.new()
-        fd = open(path, 'r')
-        buf = fd.read(16384)
-        while buf:
-            sh.update(buf)
-            buf = fd.read(16384)
-        fd.close()
-        sha1 = sh.hexdigest()
-    except:
-        pass
-    return sha1
-
 def get_dcp_hash_from_sha1(sha1):
     if sha1:
         return sha1.decode('hex').encode('base64')[:-1]

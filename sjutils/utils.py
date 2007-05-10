@@ -14,13 +14,27 @@ def ismd5(DIR):
 def md5sum(f):
 	f = file(f)
 	md = md5.new()
-	tmp = f.read(8192)
+	tmp = f.read(16384)
 	while tmp:
 		md.update(tmp)
-		tmp = f.read(8192)
+		tmp = f.read(16384)
 	f.close()
 	return md.hexdigest()
 
+def sha1sum(path):
+    sha1 = None
+    try:
+        sh = sha.new()
+        fd = open(path, 'r')
+        buf = fd.read(16384)
+        while buf:
+            sh.update(buf)
+            buf = fd.read(16384)
+        fd.close()
+        sha1 = sh.hexdigest()
+    except:
+        pass
+    return sha1
 
 def delete_recursive(path):
         if os.path.isfile(path):
