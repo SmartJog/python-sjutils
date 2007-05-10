@@ -35,7 +35,7 @@ def dcp_create_tar(dirpath):
             if file == "INGEST_IT":
                 continue
             ext = os.path.splitext(file)[1]
-            if ext != ".mxf" and ext != ".md5" and ext != ".hash":
+            if ext != ".mxf" and ext != ".md5" and ext != ".sha":
                 tar.add( os.path.join(dirpath, file), file )
         tar.close()
         return tar_path
@@ -52,27 +52,36 @@ def dcp_create_ingest_demand_file(dcpname):
     else:
         return True
 
-def get_dcp_hash_file(path):
-    hash = ''
+def sha1sum(path):
+    sha1 = None
     try:
-        hash = open(path + '.hash', 'r').readline()
-    except:
         sh = sha.new()
         fd = open(path, 'r')
         buf = fd.read(16384)
         while buf:
             sh.update(buf)
             buf = fd.read(16384)
+        fd.close()
+        sha1 = sh.hexdigest()
+    except:
+        pass
+    return sha1
 
-        hash = base64.encodestring(sh.digest())
-        hash = hash[:-1] # delete the carriage return...
-        try:
-            fd = open(path + '.hash', 'w')
-            fd.write(hash)
-        except:
-            pass
+def get_dcp_hash_from_sha1(sha1):
+    if sha1:
+        return sha1.decode('hex').encode('base64')[:-1]
+    else:
+        return None
 
-    return hash
+def get_dcp_hash(path):
+    sha = None
+    try:
+        sha = open(path + '.sha', 'r').readline()
+    except:
+        sha = sha1sum(path)
+
+    return get_dcp_hash_from_sha1(sha)
+
 
 # AssetMap : XML Parsing Class (SAX)
 class AssetMapHandler(ContentHandler):
@@ -127,7 +136,7 @@ def get_dcp_infos(dirpath):
 
     If dictionnary is empty, maybe the ASSETMAP file was not found"""
 
-    pklsList = {} 
+    pklsList = {}
     files = {}
 
     # ASSETMAP.xml contain all files informations
@@ -179,8 +188,8 @@ def get_dcp_infos(dirpath):
             error = True
         else:
             files[id][2] = True
-            hash = get_dcp_hash_file(filepath)
-            if files[id][1] == hash:
+            hash = get_dcp_hash(filepath)
+            if hash and files[id][1] == hash:
                 files[id][3] = True
             elif files[id][1] and id not in pklsList.keys():
                 files[id][3] = False
