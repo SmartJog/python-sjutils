@@ -2,7 +2,7 @@
 
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
-import os, sha, base64, tarfile, re
+import os, base64, tarfile, re
 
 def get_dcp_directory():
     return '/mnt/space/interfaces/in_ftp/SmartDCP'
@@ -62,10 +62,9 @@ def get_dcp_hash(path):
     sha = None
     try:
         sha = open(path + '.sha', 'r').readline()
+        return get_dcp_hash_from_sha1(sha)
     except:
-        sha = sha1sum(path)
-
-    return get_dcp_hash_from_sha1(sha)
+        return None
 
 
 # AssetMap : XML Parsing Class (SAX)
@@ -148,13 +147,18 @@ def get_dcp_infos(dirpath):
     doc = AssetMapHandler(files, pklsList)
     saxparser = make_parser()
     saxparser.setContentHandler(doc)
-
-    datasource = open(assetmap_path,"r")
-    saxparser.parse(datasource)
+    try:
+        datasource = open(assetmap_path,"r")
+        saxparser.parse(datasource)
+    except:
+        return False, False, files
 
     # We find the hash for each file (in PKL files)
-    doc = PklHandler(files)
-    saxparser.setContentHandler(doc)
+    try:
+        doc = PklHandler(files)
+        saxparser.setContentHandler(doc)
+    except:
+        return False, False, files
 
     for id in pklsList.keys():
         try:

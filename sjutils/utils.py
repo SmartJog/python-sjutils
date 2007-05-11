@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os, string, dircache, time, sys, md5
+import os, string, dircache, time, sys, md5, sha
 
 def ismd5(DIR):
         hex="0123456789abcdef"
@@ -22,19 +22,14 @@ def md5sum(f):
 	return md.hexdigest()
 
 def sha1sum(path):
-    sha1 = None
-    try:
-        sh = sha.new()
-        fd = open(path, 'r')
-        buf = fd.read(16384)
-        while buf:
-            sh.update(buf)
-            buf = fd.read(16384)
-        fd.close()
-        sha1 = sh.hexdigest()
-    except:
-        pass
-    return sha1
+    f = file(path)
+    sh = sha.new()
+    tmp = f.read(16384)
+    while tmp:
+        sh.update(tmp)
+        tmp = f.read(16384)
+    f.close()
+    return sh.hexdigest()
 
 def delete_recursive(path):
         if os.path.isfile(path):
