@@ -1,3 +1,10 @@
+python-sjutils (1.4.1) rxtx; urgency=low
+
+  * utils.py: fix sha1sum bug, missing import
+  * dcp.py: removed sha1 checksum, fix not xml files parsing error
+
+ -- Laurent Corbes <laurent.corbes@smartjog.com>  Mon, 14 May 2007 10:59:44 +0200
+
 python-sjutils (1.4.0) rxtx; urgency=low
 
   * Create a dcp.py file with many DCP functions (xml parsing and validity
