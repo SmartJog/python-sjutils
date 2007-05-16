@@ -44,6 +44,21 @@ def delete_recursive(path):
                         os.remove(file_or_dir)
         os.rmdir(path)
 
+def delete_directory_branche(branche_path, path_limit=None):
+    """ Try to delete branche_path until the directory is not empty
+    and until it's not the limit path.
+    Ex : delete_directory_branche('/root/toto/tata/titi', '/root') remove
+    'titi' if empty and different to path_limit, then 'tata' if... etc
+    """
+    if os.path.isdir(branche_path):
+        if path_limit and os.path.samefile(branche_path, path_limit):
+            return
+        try:
+            os.rmdir(branche_path)
+        except:
+            pass
+        else:
+            delete_directory_branche( os.path.dirname(branche_path), path_limit )
 
 class Logger:
         "Sjutils log class"

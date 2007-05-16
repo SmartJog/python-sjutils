@@ -153,7 +153,7 @@ def get_dcp_infos(dirpath):
     except:
         return False, False, files
 
-    # We find the hash for each file (in PKL files)
+    # We find the hash for each file (in PKL files)
     try:
         doc = PklHandler(files)
         saxparser.setContentHandler(doc)
