@@ -192,3 +192,17 @@ def get_dcp_infos(dirpath):
                 valid = False
         return True, valid, files
 
+def get_dcp_content_titles(dirpath):
+    title_regex = re.compile("<ContentTitleText>(.*)</ContentTitleText>")
+    titles = []
+    for file in os.listdir(dirpath):
+        ext = os.path.splitext(file)[1]
+        if ext == ".xml" or ext == ".XML":
+            txt = open( os.path.join(dirpath, file), 'r' ).read()
+            title = title_regex.findall(txt)
+            if title:
+                titles.append(title[0])
+
+    titles = list(set(titles))
+    return titles
+
