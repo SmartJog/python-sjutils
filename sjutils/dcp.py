@@ -30,13 +30,14 @@ def dcp_create_tar(dirpath):
     try:
         tar_path = os.path.join(dirpath, os.path.basename(dirpath)) + ".tar"
         tar = tarfile.open(tar_path, 'w')
-        files = os.listdir(dirpath)
-        for file in files:
-            if file == "INGEST_IT":
-                continue
-            ext = os.path.splitext(file)[1]
-            if ext != ".mxf" and ext != ".md5" and ext != ".sha":
-                tar.add( os.path.join(dirpath, file), file )
+        root_len = len(dirpath)
+        for root, dirs, files in os.walk(dirpath):
+            for file in files:
+                if file == "INGEST_IT":
+                    continue
+                ext = os.path.splitext(file)[1]
+                if ext != ".mxf" and ext != ".md5" and ext != ".sha":
+                    tar.add( os.path.join(root, file), os.path.join(root[root_len:], file) )
         tar.close()
         return tar_path
     except Exception, error:
