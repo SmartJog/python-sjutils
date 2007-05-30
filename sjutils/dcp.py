@@ -4,12 +4,6 @@ from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 import os, base64, tarfile, re
 
-def get_dcp_directory():
-    return '/mnt/space/interfaces/in_ftp/SmartDCP'
-
-def get_dcp_workdir():
-    return '/mnt/space/interfaces/in_ftp/.workdir/SmartDCP'
-
 def get_input_dcps():
     """ Return a dirpath list of all input DCP """
 
