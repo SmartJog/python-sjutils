@@ -1,4 +1,4 @@
-python-sjutils (1.4.2) rxtx; urgency=low
+python-sjutils (1.5.0) rxtx; urgency=low
 
   * add get_dcp_content_titles() function
   * add delete_directory_branch() function

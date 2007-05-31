@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import os, string, dircache, time, sys, md5, sha
 
 def ismd5(DIR):
