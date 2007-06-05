@@ -1,9 +1,7 @@
 python-sjutils (1.5.0) rxtx; urgency=low
 
-  * add get_dcp_content_titles() function
+  * move dcp functions to sjpkg
   * add delete_directory_branch() function
-  * fix : DCP tar creation processus doesn't include .sha and .md5 files when
-    there are DCP subfolders
 
  -- Frederic Julian <frederic.julian@smartjog.com>  Wed, 30 May 2007 13:22:59 +0200
 
