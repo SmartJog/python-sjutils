@@ -58,6 +58,17 @@ def delete_directory_branch(branch_path, path_limit=None):
         else:
             delete_directory_branch( os.path.dirname(branch_path), path_limit )
 
+def create_symlink(linkvalue, linkpath):
+    if os.path.islink(linkpath): # linkpath exists and is a link
+        if os.readlink(linkpath) != linkvalue: # comparing link value
+            os.unlink(linkpath)
+            os.symlink(linkvalue, linkpath)
+    elif not os.path.exists(linkpath): # linkpath is not a link, maybe it doesn't exist
+        os.symlink(linkvalue, linkpath)
+    else: # linkpath is not a link, and exists, so it is a file
+        os.unlink(linkpath)
+        os.symlink(linkvalue, linkpath)
+
 class Logger:
         "Sjutils log class"
         _file = ""
