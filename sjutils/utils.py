@@ -1,4 +1,5 @@
-import os, string, dircache, time, sys, md5, sha
+import os, string, dircache, time, sys, md5, sha, re
+from htmlentitydefs import entitydefs
 
 def ismd5(DIR):
         hex="0123456789abcdef"
@@ -88,4 +89,38 @@ class Logger:
 
         def close(self):
                 self._file.close()
+
+
+entitydefs_inverted = {}
+for k,v in entitydefs.items():
+    entitydefs_inverted[v] = k
+
+_badchars_regex = re.compile('|'.join(entitydefs.values()))
+_been_fixed_regex = re.compile('&\w+;|&#[0-9]+;')
+
+def html_entity_fixer(text, skipchars=[], extra_careful=1):
+    # if extra_careful we don't attempt to do anything to
+    # the string if it might have been converted already.
+    if type(text) != str or (extra_careful and _been_fixed_regex.findall(text)):
+        return text
+
+    if type(skipchars) == type('s'):
+        skipchars = [skipchars]
+
+    keyholder = []
+    for x in _badchars_regex.findall(text):
+        if x not in skipchars:
+            keyholder.append(x)
+    text = text.replace('&','&amp;')
+    text = text.replace('\x80', '&#8364;')
+    for each in keyholder:
+        if each == '&':
+            continue
+
+        better = entitydefs_inverted[each]
+        if not better.startswith('&#'):
+            better = '&%s;'%entitydefs_inverted[each]
+
+        text = text.replace(each, better)
+    return text 
 
