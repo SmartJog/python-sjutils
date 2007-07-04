@@ -101,7 +101,7 @@ _been_fixed_regex = re.compile('&\w+;|&#[0-9]+;')
 def html_entity_fixer(text, skipchars=[], extra_careful=1):
     # if extra_careful we don't attempt to do anything to
     # the string if it might have been converted already.
-    if type(text) != str or (extra_careful and _been_fixed_regex.findall(text)):
+    if extra_careful and _been_fixed_regex.findall(text):
         return text
 
     if type(skipchars) == type('s'):
