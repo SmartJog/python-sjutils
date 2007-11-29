@@ -1,3 +1,9 @@
+python-sjutils (1.6.1) rxtx; urgency=low
+
+  * section not mandatory for logger
+
+ -- Philippe Bridant <philippe.bridant@smartjog.com>  Thu, 29 Nov 2007 19:04:02 +0100
+
 python-sjutils (1.6.0) rxtx; urgency=low
 
   * add create_symlink() function
