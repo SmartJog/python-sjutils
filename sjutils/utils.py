@@ -128,3 +128,34 @@ def html_entity_fixer(text, skipchars=[], extra_careful=1):
         text = text.replace(each, better)
     return text 
 
+
+class Logger2:
+        "Sjutils log class"
+        _file = ""
+        _label = ""
+        
+        def __init__(self, logfile, label=None):
+                self._file = open(logfile, "a", 1)
+                if label:
+                    self._label = "[%s]" % label
+                else:
+                    self.label = ""
+                
+        def write(self, *args):
+                t = time.gmtime()
+                ts = "%02d/%02d/%02d GMT %02d:%02d:%02d" % (t[2], t[1], t[0], t[3], t[4], t[5])
+		print "====="
+		for arg in args:
+		    if type(arg) == type((1,)):
+			ts += " " + " ".join(map(str, arg))
+		    else:
+			ts += " " + arg
+		print ts
+		print ""
+                self._file.write(ts + "\n")
+
+        def redirect_stdout_stderr(self):
+                sys.stdout = sys.stderr = self._file
+
+        def close(self):
+                self._file.close()

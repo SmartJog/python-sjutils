@@ -1,3 +1,9 @@
+python-sjutils (1.7.0) rxtx; urgency=low
+
+  * Allow tuples on args
+
+ -- Philippe Bridant <philippe.bridant@smartjog.com>  Mon, 10 Dec 2007 19:02:03 +0100
+
 python-sjutils (1.6.1) rxtx; urgency=low
 
   * section not mandatory for logger
