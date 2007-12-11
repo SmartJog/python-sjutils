@@ -144,14 +144,11 @@ class Logger2:
         def write(self, *args):
                 t = time.gmtime()
                 ts = "%02d/%02d/%02d GMT %02d:%02d:%02d" % (t[2], t[1], t[0], t[3], t[4], t[5])
-		print "====="
-		for arg in args:
-		    if type(arg) == type((1,)):
-			ts += " " + " ".join(map(str, arg))
-		    else:
-			ts += " " + arg
-		print ts
-		print ""
+                for arg in args:
+                    if type(arg) == type((1,)):
+                        ts += " " + " ".join(map(str, arg))
+                    else:
+                        ts += " " + str(arg)
                 self._file.write(ts + "\n")
 
         def redirect_stdout_stderr(self):
