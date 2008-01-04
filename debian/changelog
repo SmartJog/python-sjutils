@@ -1,3 +1,9 @@
+python-sjutils (1.7.1) rxtx; urgency=low
+
+  * New version
+
+ -- Philippe Bridant <philippe.bridant@smartjog.com>  Tue, 11 Dec 2007 16:04:42 +0100
+
 python-sjutils (1.7.0) rxtx; urgency=low
 
   * Allow tuples on args
