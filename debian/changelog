@@ -1,3 +1,9 @@
+python-sjutils (1.8.0~dev-1) rxtx; urgency=low
+
+  * The Logger2 class now adds the pid in the log.
+
+ -- Jean-Philippe Garcia Ballester <jeanphilippe.garciaballester@smartjog.com>  Thu, 26 Jun 2008 16:53:52 +0200
+
 python-sjutils (1.7.1) rxtx; urgency=low
 
   * New version
