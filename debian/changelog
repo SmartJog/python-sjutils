@@ -1,8 +1,9 @@
 python-sjutils (1.8.1~dev-1) rxtx; urgency=low
 
   * Fix typos in Logger and Logger2 classes.
+  * Fix indentation problems in utils.py.
 
- -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Fri, 27 Feb 2009 14:50:01 +0100
+ -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Fri, 27 Feb 2009 14:54:57 +0100
 
 python-sjutils (1.8.0) rxtx; urgency=low
 
@@ -31,7 +32,7 @@ python-sjutils (1.6.1) rxtx; urgency=low
 python-sjutils (1.6.0) rxtx; urgency=low
 
   * add create_symlink() function
-  * add function to protect against html/javascript injection 
+  * add function to protect against html/javascript injection
 
  -- Frederic Julian <frederic.julian@smartjog.com>  Wed, 04 Jul 2007 10:25:32 +0200
 
@@ -78,7 +79,7 @@ python-sjutils (1.1-1) unstable; urgency=low
 
 python-sjutils (1.0-2) unstable; urgency=low
 
-  * Add a Logger() class with write() method 
+  * Add a Logger() class with write() method
 
  -- Romain DEGEZ <rdegez@romain.beaubourg.smartjog.lan>  Tue, 12 Jul 2005 18:29:51 +0200
 

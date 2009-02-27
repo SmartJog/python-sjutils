@@ -2,24 +2,24 @@ import os, string, dircache, time, sys, md5, sha, re
 from htmlentitydefs import entitydefs
 
 def ismd5(md5):
-        hex="0123456789abcdef"
-        if len(md5) != 32:
-                return False
-        for a in md5:
-                if string.find(hex, a) == -1:
-                        return False
-        return True
+    hex = "0123456789abcdef"
+    if len(md5) != 32:
+        return False
+    for a in md5:
+        if string.find(hex, a) == -1:
+            return False
+    return True
 
 
 def md5sum(f):
-	f = file(f)
-	md = md5.new()
-	tmp = f.read(16384)
-	while tmp:
-		md.update(tmp)
-		tmp = f.read(16384)
-	f.close()
-	return md.hexdigest()
+    f = file(f)
+    md = md5.new()
+    tmp = f.read(16384)
+    while tmp:
+        md.update(tmp)
+        tmp = f.read(16384)
+    f.close()
+    return md.hexdigest()
 
 def sha1sum(path):
     f = file(path)
@@ -32,17 +32,17 @@ def sha1sum(path):
     return sh.hexdigest()
 
 def delete_recursive(path):
-        if os.path.isfile(path):
-                os.remove(path)
-                return
+    if os.path.isfile(path):
+        os.remove(path)
+        return
 
-        for FILE in dircache.listdir(path):
-                file_or_dir = os.path.join(path, FILE)
-                if os.path.isdir(file_or_dir) and not os.path.islink(file_or_dir):
-                        delete_recursive(file_or_dir)
-                else:
-                        os.remove(file_or_dir)
-        os.rmdir(path)
+    for FILE in dircache.listdir(path):
+        file_or_dir = os.path.join(path, FILE)
+        if os.path.isdir(file_or_dir) and not os.path.islink(file_or_dir):
+            delete_recursive(file_or_dir)
+        else:
+            os.remove(file_or_dir)
+    os.rmdir(path)
 
 def delete_directory_branch(branch_path, path_limit=None):
     """ Try to delete branch_path until the directory is not empty
@@ -72,28 +72,28 @@ def create_symlink(linkvalue, linkpath):
         os.symlink(linkvalue, linkpath)
 
 class Logger:
-        "Sjutils log class"
-        _file = ""
-        _label = ""
-        
-        def __init__(self, logfile, label=None):
-                self._file = open(logfile, "a", 1)
-                self._label = label and "[%s]" % label or ""
-                
-        def write(self, str):
-                t = time.gmtime()
-                ts = "%02d/%02d/%02d GMT %02d:%02d:%02d " % (t[2], t[1], t[0], t[3], t[4], t[5])
-                self._file.write(ts + self._label + str + "\n")
+    "Sjutils log class"
+    _file = ""
+    _label = ""
 
-        def redirect_stdout_stderr(self):
-                sys.stdout = sys.stderr = self._file
+    def __init__(self, logfile, label=None):
+        self._file = open(logfile, "a", 1)
+        self._label = label and "[%s]" % label or ""
 
-        def close(self):
-                self._file.close()
+    def write(self, str):
+        t = time.gmtime()
+        ts = "%02d/%02d/%02d GMT %02d:%02d:%02d " % (t[2], t[1], t[0], t[3], t[4], t[5])
+        self._file.write(ts + self._label + str + "\n")
+
+    def redirect_stdout_stderr(self):
+        sys.stdout = sys.stderr = self._file
+
+    def close(self):
+        self._file.close()
 
 
 entitydefs_inverted = {}
-for k,v in entitydefs.items():
+for k, v in entitydefs.items():
     entitydefs_inverted[v] = k
 
 _badchars_regex = re.compile('|'.join(entitydefs.values()))
@@ -120,33 +120,33 @@ def html_entity_fixer(text, skipchars=[], extra_careful=1):
 
         better = entitydefs_inverted[each]
         if not better.startswith('&#'):
-            better = '&%s;'%entitydefs_inverted[each]
+            better = '&%s;' % entitydefs_inverted[each]
 
         text = text.replace(each, better)
-    return text 
+    return text
 
 
 class Logger2:
-        "Sjutils log class"
-        _file = ""
-        _label = ""
-        
-        def __init__(self, logfile, label=None):
-                self._file = open(logfile, "a", 1)
-                
-        def write(self, *args):
-                t = time.gmtime()
-                ts = "%02d/%02d/%02d GMT %02d:%02d:%02d" % (t[2], t[1], t[0], t[3], t[4], t[5])
-                ts += " " + str(os.getpid())
-                for arg in args:
-                    if type(arg) == type((1,)):
-                        ts += " " + " ".join(map(str, arg))
-                    else:
-                        ts += " " + str(arg)
-                self._file.write(ts + "\n")
+    "Sjutils log class"
+    _file = ""
+    _label = ""
 
-        def redirect_stdout_stderr(self):
-                sys.stdout = sys.stderr = self._file
+    def __init__(self, logfile, label=None):
+        self._file = open(logfile, "a", 1)
 
-        def close(self):
-                self._file.close()
+    def write(self, *args):
+        t = time.gmtime()
+        ts = "%02d/%02d/%02d GMT %02d:%02d:%02d" % (t[2], t[1], t[0], t[3], t[4], t[5])
+        ts += " " + str(os.getpid())
+        for arg in args:
+            if type(arg) == type((1,)):
+                ts += " " + " ".join(map(str, arg))
+            else:
+                ts += " " + str(arg)
+            self._file.write(ts + "\n")
+
+    def redirect_stdout_stderr(self):
+        sys.stdout = sys.stderr = self._file
+
+    def close(self):
+        self._file.close()
