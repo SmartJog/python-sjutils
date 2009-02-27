@@ -1,3 +1,9 @@
+python-sjutils (1.8.1~dev-1) rxtx; urgency=low
+
+  * Fix typos in Logger and Logger2 classes.
+
+ -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Fri, 27 Feb 2009 14:50:01 +0100
+
 python-sjutils (1.8.0) rxtx; urgency=low
 
   * The Logger2 class now adds the pid in the log.

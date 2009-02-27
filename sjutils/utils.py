@@ -78,10 +78,7 @@ class Logger:
         
         def __init__(self, logfile, label=None):
                 self._file = open(logfile, "a", 1)
-                if label:
-                    self._label = "[%s]" % label
-                else:
-                    self.label = ""
+                self._label = label and "[%s]" % label or ""
                 
         def write(self, str):
                 t = time.gmtime()
@@ -136,10 +133,6 @@ class Logger2:
         
         def __init__(self, logfile, label=None):
                 self._file = open(logfile, "a", 1)
-                if label:
-                    self._label = "[%s]" % label
-                else:
-                    self.label = ""
                 
         def write(self, *args):
                 t = time.gmtime()
