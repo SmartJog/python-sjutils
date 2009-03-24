@@ -1,9 +1,10 @@
-python-sjutils (1.8.1~dev-1) rxtx; urgency=low
+python-sjutils (1.8.1-1) rxtx; urgency=low
 
+  [ Gilles Dartiguelongue ]
   * Fix typos in Logger and Logger2 classes.
   * Fix indentation problems in utils.py.
 
- -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Fri, 27 Feb 2009 14:54:57 +0100
+ -- Thomas Meson <thomas.meson@smartjog.com>  Tue, 24 Mar 2009 14:17:04 +0100
 
 python-sjutils (1.8.0) rxtx; urgency=low
 
