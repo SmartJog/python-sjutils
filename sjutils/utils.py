@@ -143,7 +143,7 @@ class Logger2:
                 ts += " " + " ".join(map(str, arg))
             else:
                 ts += " " + str(arg)
-            self._file.write(ts + "\n")
+        self._file.write(ts + "\n")
 
     def redirect_stdout_stderr(self):
         sys.stdout = sys.stderr = self._file
