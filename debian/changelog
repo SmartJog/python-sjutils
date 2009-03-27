@@ -1,8 +1,15 @@
-python-sjutils (1.8.2~dev-1) rxtx; urgency=low
+python-sjutils (1.8.2-1) rxtx; urgency=low
 
+  [ Nicolas Noirbent ]
   * Fix indentation problems in utils.py, closes: #1746.
 
- -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Thu, 26 Mar 2009 18:11:45 +0100
+  [ Gilles Dartiguelongue ]
+  * Fix copyright file per lintian warning.
+  * Fix description per lintian warning.
+  * Add myself to Uploaders.
+  * Change section to python.
+
+ -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Fri, 27 Mar 2009 12:11:37 +0100
 
 python-sjutils (1.8.1-1) rxtx; urgency=low
 

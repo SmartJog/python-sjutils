@@ -1,8 +1,9 @@
 Source: python-sjutils
 XS-Python-Version: all
 Priority: optional
-Section: smartjog
+Section: python
 Maintainer: Romain DEGEZ <romain.degez@smartjog.com>
+Uploaders: Gilles Dartiguelongue <gdartigu@smartjog.com>
 Build-Depends: cdbs (>= 0.4.43), debhelper (>= 5.0.38), python-central (>= 0.5.6), python-all-dev (>= 2.3.5-11)
 Standards-Version: 3.7.2
 
@@ -13,4 +14,4 @@ XB-Python-Version: ${python:Versions}
 Architecture: all
 Depends: ${python:Depends}
 Description: SmartJog sjutils
- several python utils for SmartJog tools
+ several Python utils for SmartJog tools
