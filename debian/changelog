@@ -1,3 +1,9 @@
+python-sjutils (1.9.0-1) rxtx; urgency=low
+
+  * New upstream release.
+
+ -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Fri, 24 Apr 2009 17:26:13 +0200
+
 python-sjutils (1.8.2-1) rxtx; urgency=low
 
   [ Nicolas Noirbent ]
