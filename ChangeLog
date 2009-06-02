@@ -1,3 +1,7 @@
+Version 1.10.0~dev
+
+	* Added a ThreadPool class.
+
 Version 1.9.0 Released on 2009/04/06
 
 	* Added a DefaultDict (taken from sjtools).

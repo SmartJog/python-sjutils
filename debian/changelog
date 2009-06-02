@@ -1,3 +1,9 @@
+python-sjutils (1.10.0~dev-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Tue, 02 Jun 2009 13:44:44 +0200
+
 python-sjutils (1.9.0-1) rxtx; urgency=low
 
   * New upstream release.
