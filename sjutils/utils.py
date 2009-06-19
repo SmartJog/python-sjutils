@@ -200,3 +200,17 @@ class OrderedSafeConfigParser(ConfigParser.SafeConfigParser, OrderedConfigParser
 
     def write(self, fp):
         OrderedRawConfigParser.write(self, fp)
+
+def any(iterable, predicate = bool, *args, **kw):
+    """Return True if predicate(x, *args, **kw) is True for any x in the iterable."""
+    for elt in iterable:
+        if predicate(elt, *args, **kw):
+            return True
+    return False
+
+def all(iterable, predicate = bool, *args, **kw):
+    """Return True if predicate(x, *args, **kw) is True for all values x in the iterable."""
+    for elt in iterable:
+        if not predicate(elt, *args, **kw):
+            return False
+    return True
