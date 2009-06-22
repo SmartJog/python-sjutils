@@ -5,7 +5,7 @@ Section: python
 Maintainer: Romain DEGEZ <romain.degez@smartjog.com>
 Uploaders: Gilles Dartiguelongue <gdartigu@smartjog.com>
 Build-Depends: cdbs (>= 0.4.43), debhelper (>= 5.0.38), python-central (>= 0.5.6), python-all-dev (>= 2.3.5-11)
-Standards-Version: 3.7.2
+Standards-Version: 3.8.0
 
 Package: python-sjutils
 Replaces: python2.3-sjutils
