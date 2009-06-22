@@ -2,8 +2,9 @@ python-sjutils (1.10.0~dev-1) unstable; urgency=low
 
   * New upstream release.
   * Raise debian standard to 3.8.0.
+  * Remove empty usr/lib from package.
 
- -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Mon, 22 Jun 2009 15:25:38 +0200
+ -- Gilles Dartiguelongue <gdartigu@smartjog.com>  Mon, 22 Jun 2009 15:27:33 +0200
 
 python-sjutils (1.9.0-1) rxtx; urgency=low
 
