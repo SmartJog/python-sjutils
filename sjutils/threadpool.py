@@ -298,7 +298,9 @@ class ThreadPool:
         assert isinstance(request, WorkRequest)
         # don't reuse old work requests
         assert not getattr(request, 'exception', None)
-        self._requests_queue.put(request, block, timeout)
+        # make sure we don't queue the same id twice
+        if not request.request_id in self.work_requests:
+            self._requests_queue.put(request, block, timeout)
         self.work_requests[request.request_id] = request
 
     def poll(self, block=False):
