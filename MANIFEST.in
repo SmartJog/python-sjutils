@@ -1,0 +1,2 @@
+include ChangeLog
+recursive-include examples *.py

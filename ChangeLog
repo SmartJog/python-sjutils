@@ -1,3 +1,7 @@
+Version 1.10.2~dev
+
+	* Fix distutils packaging.
+
 Version 1.10.1 Released on 2009/06/25
 
 	* Do not queue the same work request twice, just update its data, closes: #2062.

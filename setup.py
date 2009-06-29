@@ -12,5 +12,24 @@ from distutils.core import setup
 
 
 setup (
-    packages=['sjutils']
-    )
+    name='python-sjutils',
+    version='1.10.2~dev',
+    description='SmartJog sjutils',
+    long_description='several Python utils for SmartJog tools',
+
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
+
+    keywords='',
+
+    author='Romain DEGEZ and contributors',
+    author_email='romain.degez@smartjog.com',
+
+    url='http://www.smartjog.com/',
+    license='Proprietary',
+
+    packages=['sjutils'],
+)
