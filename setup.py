@@ -13,7 +13,7 @@ from distutils.core import setup
 
 setup (
     name='python-sjutils',
-    version='1.10.2~dev',
+    version='1.11.0~dev',
     description='SmartJog sjutils',
     long_description='several Python utils for SmartJog tools',
 
