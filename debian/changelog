@@ -1,11 +1,11 @@
-python-sjutils (1.11.0~dev-1) unstable; urgency=low
+python-sjutils (1.11.0-1) unstable; urgency=low
 
   * New upstream release.
   * Added myself to Uploaders.
   * Added missing ${misc:Depends} to dependencies.
   * Bumped Standards Version to 3.8.3
 
- -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Tue, 27 Oct 2009 15:22:30 +0100
+ -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Tue, 27 Oct 2009 15:25:15 +0100
 
 python-sjutils (1.10.1-1) unstable; urgency=low
 
