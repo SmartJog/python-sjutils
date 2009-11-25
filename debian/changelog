@@ -1,3 +1,11 @@
+python-sjutils (1.12.0~dev-1) unstable; urgency=low
+
+  * New upstram release.
+  * Added myself to uploaders.
+  * Change autotools for packaging, closes: #2681.
+
+ -- Guillaume Camera <guillaume.camera@smartjog.com>  Wed, 25 Nov 2009 15:50:29 +0100
+
 python-sjutils (1.11.1-1) unstable; urgency=low
 
   * New upstream dummy re-release for etch build.

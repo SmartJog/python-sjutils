@@ -1,16 +1,14 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-DEB_PYTHON_SYSTEM=pycentral
-
 # Debhelper must be included before python-distutils to use
 # # dh_python / dh_pycentral / dh_pysupport
 include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/python-distutils.mk
+include /usr/share/cdbs/1/class/autotools.mk
 
+DEB_DESTDIR := $(CURDIR)/debian/tmp
 PYTHON_PACKAGES := python-sjutils
 
 $(patsubst %,binary-install/%,$(PYTHON_PACKAGES)) ::
 	dh_pycentral -p$(cdbs_curpkg)
 	-rmdir $(CURDIR)/debian/$(cdbs_curpkg)/usr/lib # Ugly hack, remove this when python-central >= 0.6.0 is on the build
-

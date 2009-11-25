@@ -1,3 +1,7 @@
+Version 1.12.0~dev
+
+	* Used autotools for the packaging, closes: #2681.
+
 Version 1.11.1 Released on 2009/11/03
 
 	* Dummy re-release for etch build.
