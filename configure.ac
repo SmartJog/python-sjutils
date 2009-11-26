@@ -8,6 +8,7 @@ AM_PATH_PYTHON
 AC_PATH_PROG(MSGFMT, msgfmt)
 
 AC_SUBST([sjutilssysconfdir], [\$\(sysconfdir\)/sjutils])
+AC_SUBST([sjutilsexecdir], [\$\(pyexecdir\)/sjutils])
 
 
 AC_CONFIG_FILES([
