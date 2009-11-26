@@ -4,11 +4,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.12.0~dev\n"
+"Project-Id-Version: @VERSION@\n"
 "POT-Creation-Date: 2009-11-25 16:36+CET\n"
 "PO-Revision-Date: 2009-11-25 16:36+CET\n"
 "Last-Translator: Guillaume Camera <gcamera.smartjog.com>\n"
-"Language-Team: EN <LL@li.org>\n"
+"Language-Team: EN <core@smartjog.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,4 +17,4 @@ msgstr ""
 
 #: sjutils/utils.py:81
 msgid "Bytes"
-msgstr "Octets"
+msgstr ""
