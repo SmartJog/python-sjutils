@@ -9,11 +9,14 @@ AC_PATH_PROG(MSGFMT, msgfmt)
 
 AC_SUBST([sjutilssysconfdir], [\$\(sysconfdir\)/sjutils])
 AC_SUBST([sjutilsexecdir], [\$\(pyexecdir\)/sjutils])
+AC_SUBST([localesdir], [\$\(datadir\)/sjutils])
+
 
 
 AC_CONFIG_FILES([
 	Makefile
 	sjutils/Makefile
+	locale/Makefile
 ])
 
 AC_OUTPUT

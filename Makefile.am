@@ -1,1 +1,1 @@
-SUBDIRS = sjutils
+SUBDIRS = sjutils locale

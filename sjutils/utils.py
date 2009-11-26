@@ -71,6 +71,28 @@ def create_symlink(linkvalue, linkpath):
         os.unlink(linkpath)
         os.symlink(linkvalue, linkpath)
 
+def pretty_size(size, verbose=False):
+    """
+        returns pretty_size of float 'size', expressed as Bytes, like 424MB.
+        If verbose is True, return value will be "424 MegaBytes".
+    """
+    import gettext
+    gettext.install('python-sjutils')
+    base = _("Bytes")
+    for unit in ["", "Kilo", "Mega", "Giga", "Tera", "Peta", "Exa", "Zetta", "Yotta"]:
+        if verbose:
+            final_unit =  len(unit) and  (unit + base) or  base
+        else:
+            final_unit =  len(unit) and  (unit[0] +  base[0]) or base
+
+        if size < 1024.0:
+            return "%3.1f %s" % (size, final_unit)
+
+        if (unit != "Yotta"):
+            size /= 1024.0
+
+    return "%3.1f %s" % (size, final_unit)
+
 class Logger:
     "Sjutils log class"
     _file = ""
