@@ -6,8 +6,11 @@ from htmlentitydefs import entitydefs
 
 def pretty_size(size, verbose=False):
     """
-        returns pretty_size of float 'size', expressed as Bytes, like 424MB.
-        If verbose is True, return value will be "424 MegaBytes".
+    Convert an integer to an human-readable file size string.
+
+    @param size The size to convert to an human-readable string.
+    @param verbose If True, do not use abbreviations (M -> Mega etc.)
+    @return A string representing the size in human readable form.
     """
     import gettext
     gettext.install('python-sjutils')
@@ -16,10 +19,14 @@ def pretty_size(size, verbose=False):
         if verbose:
             final_unit =  len(unit) and  (unit + base) or  base
         else:
-            final_unit =  len(unit) and  (unit[0] +  base[0]) or base
+            final_unit =  len(unit) and  (unit[0] +  base[0]) or base[0]
 
         if size < 1024.0:
-            return "%3.1f %s" % (size, final_unit)
+            import math
+            if math.floor(size) == size:
+                return "%d %s" % (int(size), final_unit)
+            else:
+                return "%3.1f %s" % (size, final_unit)
 
         if (unit != "Yotta"):
             size /= 1024.0
