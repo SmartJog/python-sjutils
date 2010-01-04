@@ -308,3 +308,96 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
             if self.stream.tell() + len(msg) >= self.max_bytes:
                 return 1
         return 0
+
+
+from psycopg2.pool import ThreadedConnectionPool
+import psycopg2
+
+class PgConnManager(object):
+    """
+    Manage postgresql database connections.
+    """
+
+    def __init__(self, conf):
+        """
+        conf can either be a string, in this case it will
+        be used as a file name to retrieve the configuration
+        from, or conf can be a dict directly containing
+        the configuration.
+        """
+        self.__conf__ = conf
+        self.__conn_pool__ = None
+        self.__conn__ = None
+        self.__cur__ = None
+
+    class DatabaseError(psycopg2.Error):
+        """ Raised when database connection error occurs. """
+        pass
+
+    def connect(self):
+        """ Connect to database. """
+        from ConfigParser import RawConfigParser
+
+        if not self.__conn_pool__:
+            if isinstance(self.__conf__, basestring):
+                conf = RawConfigParser()
+                conf.read(self.__conf__)
+                items = dict(conf.items('database'))
+            else:
+                items = self.__conf__
+            # We can either accept 'database' or 'dbname' as an input
+            if items.has_key('database') and not item.has_key('dbname'):
+                items['dbname'] = items['database']
+            connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % items
+            self.__conn_pool__ = ThreadedConnectionPool(1, 200, connector)
+        try:
+            self.__conn__ = self.__conn_pool__.getconn()
+        except psycopg2.Error, _error:
+            # We do not want our users to have to 'import psycopg2' to
+            # handle the module's underlying database errors
+            _, value, traceback = sys.exc_info()
+            raise _Psycopg2.DatabaseError, value, traceback
+
+    def execute(self, query, options=None):
+        """ Execute an SQL query. """
+        try:
+            if not self.__cur__:
+                self.__cur__ = self.__conn__.cursor()
+            if options:
+                self.__cur__.execute(query, options)
+            else:
+                self.__cur__.execute(query)
+        except psycopg2.Error, _error:
+            self.__cur__ = None
+            self.__conn_pool__.putconn(conn, close=True)
+            # We do not want our users to have to 'import psycopg2' to
+            # handle the module's underlying database errors
+            _, value, traceback = sys.exc_info()
+            raise _Psycopg2.DatabaseError, value, traceback
+
+    def commit(self):
+        """ Commit changes to dabatase. """
+        try:
+            self.__conn__.commit()
+        except psycopg2.Error, _error:
+            self.rollback()
+            self.__cur__ = None
+            self.__conn_pool__.putconn(conn, close=True)
+            # We do not want our users to have to 'import psycopg2' to
+            # handle the module's underlying database errors
+            _, value, traceback = sys.exc_info()
+            raise _Psycopg2.DatabaseError, value, traceback
+
+    def rollback(self):
+        """ Rollback changes to database. """
+        if not self.__conn__.closed:
+            self.__conn__.rollback()
+
+    def release(self):
+        """ Release database connection. """
+        self.__cur__ = None
+        self.__conn_pool__.putconn(self.__conn__, close=False)
+
+    def fetchall(self):
+        """ Return all rows of current request. """
+        return self.__cur__.fetchall()
