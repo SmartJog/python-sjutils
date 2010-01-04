@@ -1,6 +1,6 @@
 AC_PREREQ(2.61)
 
-AC_INIT([python-sjutils],[1.13.0])
+AC_INIT([python-sjutils],[1.14.0~dev])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -16,6 +16,7 @@ AC_SUBST([localesdir], [\$\(datadir\)/sjutils])
 AC_CONFIG_FILES([
 	Makefile
 	sjutils/Makefile
+	tests/Makefile
 	locale/Makefile
 	locale/en/LC_MESSAGES/python-sjutils.po
 	locale/fr/LC_MESSAGES/python-sjutils.po

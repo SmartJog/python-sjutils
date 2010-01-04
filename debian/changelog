@@ -1,3 +1,12 @@
+python-sjutils (1.14.0~dev-1) unstable; urgency=low
+
+  * New upstream release.
+  * Switched XS-Python-Version to >= 2.4, since we use collections.deque.
+  * Added a check target to debian/rules.
+  * Added Build-Depends on python-psycopg2 (this is needed to pass the testsuite).
+
+ -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Wed, 06 Jan 2010 10:58:43 +0100
+
 python-sjutils (1.13.0-1) unstable; urgency=low
 
   [ Thomas Souvignet ]

@@ -401,3 +401,65 @@ class PgConnManager(object):
     def fetchall(self):
         """ Return all rows of current request. """
         return self.__cur__.fetchall()
+
+def flatten_dict(dictionary, sep = '/'):
+    """
+    Flatten a Python dictionary, in an iterative way (no stack
+    overflow)
+
+    Flattenning a dictionary can be compared to the depth-first
+    traversal of a B-tree. We can iterate through the tree's branches
+    by keeping a stack (FILO) of the nodes we're traversing.
+
+    @param dictionary The dictionary to flatten
+    @param sep A string that will be used to join the keys
+    @return The flattened dictionary
+    """
+
+    my_stack = dictionary.items()
+    result = {}
+
+    while my_stack:
+        key, value = my_stack.pop()
+        if isinstance(value, dict):
+            my_stack.extend([(key + sep + inner_key, inner_value) for inner_key, inner_value in value.iteritems()])
+        else:
+            result[key] = value
+
+    return result
+
+def flatten_list(my_list):
+    """
+    Flatten a Python list, in an iterative way (no stack
+    overflow)
+
+    Flattenning a list can be compared to the depth-first traversal of
+    a B-tree. We can iterate through the tree's branches by keeping a
+    stack (FILO) of the nodes we're traversing.
+
+    Note: I used collections.deque here in order to avoid using
+    multiple calls to list() (to avoid in-place modification of the
+    list) and reverse() (to preserve the order in the stack). The only
+    beef I have with deque is its input-reversing extendleft() method,
+    which forces me to call reversed() on the inner lists.
+
+    Note 2: Currently, we completely collapse empty lists, i.e. they
+    will never be part of the returned list.
+
+    @param my_list The list to flatten
+    @return The flattened list
+    """
+
+    # We use collections.deque for fast pop(0) / insert(0, v)
+    from collections import deque
+    my_stack = deque(my_list)
+    result = []
+
+    while my_stack:
+        elt = my_stack.popleft()
+        if isinstance(elt, list):
+            my_stack.extendleft(reversed(elt))
+        else:
+            result.append(elt)
+
+    return result

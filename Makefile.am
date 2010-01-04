@@ -1,1 +1,1 @@
-SUBDIRS = sjutils locale
+SUBDIRS = sjutils locale tests

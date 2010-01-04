@@ -7,6 +7,7 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 
 DEB_DESTDIR := $(CURDIR)/debian/tmp
+DEB_MAKE_CHECK_TARGET := check
 PYTHON_PACKAGES := python-sjutils
 
 $(patsubst %,binary-install/%,$(PYTHON_PACKAGES)) ::
