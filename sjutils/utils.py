@@ -346,7 +346,7 @@ class PgConnManager(object):
             else:
                 items = self.__conf__
             # We can either accept 'database' or 'dbname' as an input
-            if items.has_key('database') and not item.has_key('dbname'):
+            if items.has_key('database') and not items.has_key('dbname'):
                 items['dbname'] = items['database']
             connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % items
             self.__conn_pool__ = ThreadedConnectionPool(1, 200, connector)
