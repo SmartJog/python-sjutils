@@ -1,9 +1,10 @@
-python-sjutils (1.13.0~dev-1) unstable; urgency=low
+python-sjutils (1.13.0-1) unstable; urgency=low
 
+  [ Thomas Souvignet ]
   * New upstream release.
   * Added myself to uploaders.
 
- -- Thomas Souvignet <thomas.souvignet@smartjog.com>  Wed, 30 Dec 2009 17:08:19 +0100
+ -- Thomas Souvignet <thomas.souvignet@smartjog.com>  Tue, 05 Jan 2010 16:52:48 +0100
 
 python-sjutils (1.12.0-1) unstable; urgency=low
 
