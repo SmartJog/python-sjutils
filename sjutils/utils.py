@@ -356,7 +356,7 @@ class PgConnManager(object):
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise _Psycopg2.DatabaseError, value, traceback
+            raise psycopg2.DatabaseError, value, traceback
 
     def execute(self, query, options=None):
         """ Execute an SQL query. """
@@ -369,11 +369,12 @@ class PgConnManager(object):
                 self.__cur__.execute(query)
         except psycopg2.Error, _error:
             self.__cur__ = None
-            self.__conn_pool__.putconn(conn, close=True)
+            self.__conn_pool__.putconn(self.__conn__, close=True)
+            self.__conn__ = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise _Psycopg2.DatabaseError, value, traceback
+            raise psycopg2.DatabaseError, value, traceback
 
     def commit(self):
         """ Commit changes to dabatase. """
@@ -382,11 +383,12 @@ class PgConnManager(object):
         except psycopg2.Error, _error:
             self.rollback()
             self.__cur__ = None
-            self.__conn_pool__.putconn(conn, close=True)
+            self.__conn_pool__.putconn(self.__conn__, close=True)
+            self.__conn__ = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise _Psycopg2.DatabaseError, value, traceback
+            raise psycopg2.DatabaseError, value, traceback
 
     def rollback(self):
         """ Rollback changes to database. """
@@ -397,6 +399,7 @@ class PgConnManager(object):
         """ Release database connection. """
         self.__cur__ = None
         self.__conn_pool__.putconn(self.__conn__, close=False)
+        self.__conn__ = None
 
     def fetchall(self):
         """ Return all rows of current request. """
