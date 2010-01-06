@@ -212,13 +212,13 @@ class OrderedRawConfigParser(ConfigParser.RawConfigParser):
             fp.write("\n")
 
 class OrderedConfigParser(ConfigParser.ConfigParser, OrderedRawConfigParser):
-    """A ConfigParser subclas, with an ordered write() method."""
+    """A ConfigParser subclass, with an ordered write() method."""
 
     def write(self, fp):
         OrderedRawConfigParser.write(self, fp)
 
 class OrderedSafeConfigParser(ConfigParser.SafeConfigParser, OrderedConfigParser):
-    """A SafeConfigParser subclas, with an ordered write() method."""
+    """A SafeConfigParser subclass, with an ordered write() method."""
 
     def write(self, fp):
         OrderedRawConfigParser.write(self, fp)
