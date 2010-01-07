@@ -12,6 +12,6 @@ Replaces: python2.3-sjutils
 Conflicts: python2.3-sjutils
 XB-Python-Version: ${python:Versions}
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}
+Depends: ${misc:Depends}, ${python:Depends}, python-psycopg2
 Description: SmartJog sjutils
  several Python utils for SmartJog tools

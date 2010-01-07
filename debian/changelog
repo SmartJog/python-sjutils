@@ -1,8 +1,9 @@
 python-sjutils (1.14.1~dev-1) unstable; urgency=low
 
   * New upstream release.
+  * Added missing dependency on python-psycopg2, refs: #2807.
 
- -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Thu, 07 Jan 2010 11:18:10 +0100
+ -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Thu, 07 Jan 2010 11:21:24 +0100
 
 python-sjutils (1.14.0-1) unstable; urgency=low
 
