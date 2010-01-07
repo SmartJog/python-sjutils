@@ -356,7 +356,7 @@ class PgConnManager(object):
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise psycopg2.DatabaseError, value, traceback
+            raise self.DatabaseError, value, traceback
 
     def execute(self, query, options=None):
         """ Execute an SQL query. """
@@ -374,7 +374,7 @@ class PgConnManager(object):
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise psycopg2.DatabaseError, value, traceback
+            raise self.DatabaseError, value, traceback
 
     def commit(self):
         """ Commit changes to dabatase. """
@@ -388,7 +388,7 @@ class PgConnManager(object):
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise psycopg2.DatabaseError, value, traceback
+            raise self.DatabaseError, value, traceback
 
     def rollback(self):
         """ Rollback changes to database. """
