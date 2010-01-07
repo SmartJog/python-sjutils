@@ -1,4 +1,4 @@
-python-sjutils (1.14.0~dev-1) unstable; urgency=low
+python-sjutils (1.14.0-1) unstable; urgency=low
 
   * New upstream release.
   * Switched XS-Python-Version to >= 2.4, since we use collections.deque.

@@ -1,4 +1,4 @@
-Version 1.14.0~dev
+Version 1.14.0 Released on 2010/01/07
 
 	* Added flatten_{dict,list} functions.
 	* Corrected some bad error handling code.
