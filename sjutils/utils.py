@@ -313,97 +313,178 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
 from psycopg2.pool import ThreadedConnectionPool
 import psycopg2
 
+def manage_pgconn(user, password, dbname, host='localhost', port='5432'):
+    """ Manage the postgresql database connection using
+    information stored on conf_file """
+    def __nested__(func):
+        db_opts = { 'user' : user, 'password' : password, 'host' : host, 'port' : port, 'dbname' : dbname }
+        return PgConnProxy(db_opts, func)
+
+    return __nested__
+
+
+class PgConnProxy(object):
+    """
+    A proxy class to allow compatibility between
+    PgConnManager's Factory system and decorators.
+    """
+
+    def __init__(self, db_opts, func):
+        self.__params__ = db_opts
+        self.__func__ = func
+        self.__name__ = func.__name__
+        self.__doc__ = func.__doc__
+        self.__module__ = func.__module__
+        self.__dict__.update(func.__dict__)
+
+    def __call__(self, *args, **kw):
+        manager = PgConnManager(self.__params__)
+        return manager.decorate(self.__func__, *args, **kw)
+
+
 class PgConnManager(object):
     """
     Manage postgresql database connections.
     """
 
-    def __init__(self, conf):
-        """
-        conf can either be a string, in this case it will
-        be used as a file name to retrieve the configuration
-        from, or conf can be a dict directly containing
-        the configuration.
-        """
-        self.__conf__ = conf
-        self.__conn_pool__ = None
-        self.__conn__ = None
-        self.__cur__ = None
+    # dict to keep track of PgConnManager instances
+    _instances = {}
 
     class DatabaseError(psycopg2.Error):
         """ Raised when database connection error occurs. """
         pass
 
-    def connect(self):
-        """ Connect to database. """
-        from ConfigParser import RawConfigParser
+    def __new__(self, *kargs, **kwargs):
+        db_opts = kargs[0]
 
-        if not self.__conn_pool__:
-            if isinstance(self.__conf__, basestring):
-                conf = RawConfigParser()
-                conf.read(self.__conf__)
-                items = dict(conf.items('database'))
-            else:
-                items = self.__conf__
-            # We can either accept 'database' or 'dbname' as an input
-            if items.has_key('database') and not items.has_key('dbname'):
-                items['dbname'] = items['database']
-            connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % items
-            self.__conn_pool__ = ThreadedConnectionPool(1, 200, connector)
+        # We can either accept 'database' or 'dbname' as an input
+        if db_opts.has_key('database') and not db_opts.has_key('dbname'):
+            db_opts['dbname'] = db_opts['database']
+
+        # This is ugly but since dict types cannot be used
+        # as keys in another dict, we need to transform it.
+        # This transformation was chosen as it is human
+        # readable, it could be changed to a more optimised one.
+        db_str = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % db_opts
+
+        if self._instances.has_key(db_str):
+            return self._instances[db_str]
+        self._instances[db_str] = super(PgConnManager, self).__new__(self, *kargs, **kwargs)
+        return self._instances[db_str]
+
+    def __init__(self, db_opts):
+        self.__params__ = db_opts
+        if not hasattr(self, '__conn_pool__'):
+            self.__conn_pool__ = None
+
+    def decorate(self, func, *args, **kw):
         try:
-            self.__conn__ = self.__conn_pool__.getconn()
+            ctx_list = self.connect()
+            try:
+                ret = func(self, ctx_list, *args, **kw)
+
+                # Connexion(s) wasn't released by user, so we have to release it/them
+                for ctx in ctx_list:
+                    if ctx['conn'] is not None:
+                        self.release(ctx)
+
+                return ret
+            except psycopg2.Error, _error:
+                for ctx in ctx_list:
+                    ctx['cursor'] = None
+                    self.__conn_pool__.putconn(ctx['conn'], close=True)
+                    ctx['conn'] = None
+                raise
+            except Exception:
+                for ctx in ctx_list:
+                    self.rollback(ctx)
+                    self.release(ctx)
+                raise
         except psycopg2.Error, _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
             raise self.DatabaseError, value, traceback
 
-    def execute(self, query, options=None):
+    def _new_ctx(self):
+        """ Create a new context object. """
+        ret = { 'conn' : None, 'cursor' : None }
+        ret['conn'] = self.__conn_pool__.getconn()
+        return ret
+
+    def connect(self, ctx_list = None):
+        """ Connect to database. """
+        try:
+            if not self.__conn_pool__:
+                connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % self.__params__
+                self.__conn_pool__ = ThreadedConnectionPool(1, 200, connector)
+            if not ctx_list:
+                ctx_list = []
+            ctx_list.append(self._new_ctx())
+            return ctx_list
+
+        except psycopg2.Error, _error:
+            # We do not want our users to have to 'import psycopg2' to
+            # handle the module's underlying database errors
+            _, value, traceback = sys.exc_info()
+            raise self.DatabaseError, value, traceback
+
+    def execute(self, ctx, query, options=None):
         """ Execute an SQL query. """
         try:
-            if not self.__cur__:
-                self.__cur__ = self.__conn__.cursor()
+            if not ctx['conn']:
+                ctx['conn'] = self.__conn_pool__.getconn()
+            if not ctx['cursor']:
+                ctx['cursor'] = ctx['conn'].cursor()
             if options:
-                self.__cur__.execute(query, options)
+                ctx['cursor'].execute(query, options)
             else:
-                self.__cur__.execute(query)
+                ctx['cursor'].execute(query)
         except psycopg2.Error, _error:
-            self.__cur__ = None
-            self.__conn_pool__.putconn(self.__conn__, close=True)
-            self.__conn__ = None
+            ctx['cursor'] = None
+            self.__conn_pool__.putconn(ctx['conn'], close=True)
+            ctx['conn'] = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
             raise self.DatabaseError, value, traceback
 
-    def commit(self):
+    def commit(self, ctx):
         """ Commit changes to dabatase. """
         try:
-            self.__conn__.commit()
+            ctx['conn'].commit()
         except psycopg2.Error, _error:
             self.rollback()
-            self.__cur__ = None
-            self.__conn_pool__.putconn(self.__conn__, close=True)
-            self.__conn__ = None
+            ctx['cursor'] = None
+            if ctx['conn']:
+                self.__conn_pool__.putconn(ctx['conn'], close=True)
+            ctx['conn'] = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
             raise self.DatabaseError, value, traceback
 
-    def rollback(self):
+    def rollback(self, ctx):
         """ Rollback changes to database. """
-        if not self.__conn__.closed:
-            self.__conn__.rollback()
+        if not ctx['conn'].closed:
+            ctx['conn'].rollback()
 
-    def release(self):
+    def release(self, ctx):
         """ Release database connection. """
-        self.__cur__ = None
-        self.__conn_pool__.putconn(self.__conn__, close=False)
-        self.__conn__ = None
+        ctx['cursor'] = None
+        if ctx['conn']:
+            self.__conn_pool__.putconn(ctx['conn'], close=False)
+        ctx['conn'] = None
 
-    def fetchall(self):
+    def release_all(self, ctx_list):
+        """ Release all database connections from a context list. """
+        for ctx in ctx_list:
+            self.release(ctx)
+        ctx_list = None
+
+    def fetchall(self, ctx):
         """ Return all rows of current request. """
-        return self.__cur__.fetchall()
+        return ctx['cursor'].fetchall()
 
 def flatten_dict(dictionary, sep = '/'):
     """
