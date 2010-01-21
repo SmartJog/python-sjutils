@@ -1,4 +1,4 @@
-Version 1.15.0~dev
+Version 1.15.0 Released on 2010/01/21
 
 	* PgConnManager: implemented new conception, closes: #2807.
 
