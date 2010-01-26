@@ -417,7 +417,7 @@ class PgConnManager(object):
         try:
             if not self.__conn_pool__:
                 connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % self.__params__
-                self.__conn_pool__ = ThreadedConnectionPool(1, 200, connector)
+                self.__conn_pool__ = ThreadedConnectionPool(1, 10, connector)
             if not ctx_list:
                 ctx_list = []
             ctx_list.append(self._new_ctx())
