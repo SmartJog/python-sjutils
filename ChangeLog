@@ -1,4 +1,4 @@
-Version 1.15.1~dev
+Version 1.15.1 Released on 2010/01/27
 
 	* PgConnManager: lowered number of max connections to 20, closes: #2918.
 	* PgConnManager: locked ThreadedConnectionPool creation, closes: #2924.
