@@ -1,5 +1,6 @@
 import os, string, dircache, time, sys, md5, sha, re
 from htmlentitydefs import entitydefs
+import threading
 
 def ismd5(md5):
     hex = "0123456789abcdef"
@@ -367,9 +368,9 @@ class PgConnManager(object):
         # readable, it could be changed to a more optimised one.
         db_str = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % db_opts
 
-        if self._instances.has_key(db_str):
-            return self._instances[db_str]
-        self._instances[db_str] = super(PgConnManager, self).__new__(self, *kargs, **kwargs)
+        if not self._instances.has_key(db_str):
+            self._instances[db_str] = super(PgConnManager, self).__new__(self, *kargs, **kwargs)
+            self._instances[db_str].lock = threading.Lock()
         return self._instances[db_str]
 
     def __init__(self, db_opts):
@@ -415,9 +416,13 @@ class PgConnManager(object):
     def connect(self, ctx_list = None):
         """ Connect to database. """
         try:
-            if not self.__conn_pool__:
-                connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % self.__params__
-                self.__conn_pool__ = ThreadedConnectionPool(1, 10, connector)
+            self.lock.acquire_lock()
+            try:
+                if not self.__conn_pool__:
+                    connector = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % self.__params__
+                    self.__conn_pool__ = ThreadedConnectionPool(1, 20, connector)
+            finally:
+                self.lock.release_lock()
             if not ctx_list:
                 ctx_list = []
             ctx_list.append(self._new_ctx())
