@@ -1,3 +1,9 @@
+python-sjutils (1.15.2~dev-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Philippe Bridant <philippe.bridant@smartjog.com>  Mon, 01 Feb 2010 17:57:44 +0100
+
 python-sjutils (1.15.1-1) unstable; urgency=low
 
   * New upstream release, closes: #2918, #2924.

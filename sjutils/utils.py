@@ -491,6 +491,10 @@ class PgConnManager(object):
         """ Return all rows of current request. """
         return ctx['cursor'].fetchall()
 
+    def fetchone(self, ctx):
+        """ Return one row of current request. """
+        return ctx['cursor'].fetchone()
+
 def flatten_dict(dictionary, sep = '/'):
     """
     Flatten a Python dictionary, in an iterative way (no stack
