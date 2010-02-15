@@ -1,3 +1,7 @@
+Version 1.16.0~dev
+
+	* PgConnManager: Added manage_pgconn_conf decorator
+
 Version 1.15.2 Released on 2010/02/01
 
 	* PgConnManager: Added missing fetchone database function.

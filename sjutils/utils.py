@@ -323,6 +323,18 @@ def manage_pgconn(user, password, dbname, host='localhost', port='5432'):
 
     return __nested__
 
+def manage_pgconn_conf(conf_file, section="database"):
+    """ Manage the postgresql database connection using
+    information stored on conf_file """
+    def __nested__(func):
+        from ConfigParser import RawConfigParser
+        conf = RawConfigParser()
+        conf.read(conf_file)
+        items = dict(conf.items(section))
+        return PgConnProxy(items, func)
+
+    return __nested__
+
 
 class PgConnProxy(object):
     """
