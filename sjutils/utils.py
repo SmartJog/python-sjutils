@@ -405,7 +405,8 @@ class PgConnManager(object):
             except psycopg2.Error, _error:
                 for ctx in ctx_list:
                     ctx['cursor'] = None
-                    self.__conn_pool__.putconn(ctx['conn'], close=True)
+                    if ctx['conn']:
+                        self.__conn_pool__.putconn(ctx['conn'], close=True)
                     ctx['conn'] = None
                 raise
             except Exception:
@@ -459,7 +460,8 @@ class PgConnManager(object):
                 ctx['cursor'].execute(query)
         except psycopg2.Error, _error:
             ctx['cursor'] = None
-            self.__conn_pool__.putconn(ctx['conn'], close=True)
+            if ctx['conn']:
+                self.__conn_pool__.putconn(ctx['conn'], close=True)
             ctx['conn'] = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors

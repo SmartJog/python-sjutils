@@ -1,3 +1,7 @@
+Version 1.16.1~dev
+
+	* PgConnManager: Protected against NULL connection on context when closing
+	  connection
 Version 1.16.0 Released on 2010/02/16
 
 	* PgConnManager: Added manage_pgconn_conf decorator
