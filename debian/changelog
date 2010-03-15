@@ -1,8 +1,8 @@
-python-sjutils (1.16.2~dev-1) unstable; urgency=low
+python-sjutils (1.17.0~dev-1) unstable; urgency=low
 
-  * New upstream release.
+  * New upstream release, closes: #3024.
 
- -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Mon, 15 Mar 2010 17:27:11 +0100
+ -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Fri, 19 Mar 2010 15:31:07 +0100
 
 python-sjutils (1.16.1-1) unstable; urgency=low
 

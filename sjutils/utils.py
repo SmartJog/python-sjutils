@@ -150,6 +150,21 @@ def html_entity_fixer(text, skipchars=[], extra_careful=1):
         text = text.replace(each, better)
     return text
 
+def html_escape(text):
+    """
+    Escape HTML characters / entities in @text.
+    """
+    # We start by replacing '&'
+    text = text.replace('&', '&amp;')
+    # We don't want '&' in our dict, as it would mess up any previous
+    # replace() we'd done
+    entitydefs_inverted = ((value, key)
+                           for key, value
+                           in entitydefs.iteritems()
+                           if value != '&')
+    for key, value in entitydefs_inverted:
+        text = text.replace(key, '&%s;' % value)
+    return text
 
 class Logger2:
     "Sjutils log class"
