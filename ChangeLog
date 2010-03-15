@@ -1,3 +1,7 @@
+Version 1.16.2~dev
+
+	* Switched sjutils/utils.py's coding to UTF-8 for RT #12335.
+
 Version 1.16.1 Released on 2010/03/11
 
 	* PgConnManager: Protected against NULL connection on context when closing

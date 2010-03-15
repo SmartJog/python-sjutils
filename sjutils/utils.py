@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os, string, dircache, time, sys, md5, sha, re
 from htmlentitydefs import entitydefs
 import threading
