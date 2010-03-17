@@ -1,8 +1,13 @@
 python-sjutils (1.17.0~dev-1) unstable; urgency=low
 
+  [ Nicolas Noirbent ]
   * New upstream release, closes: #3024.
 
- -- Nicolas Noirbent <nicolas.noirbent@smartjog.com>  Fri, 19 Mar 2010 15:31:07 +0100
+  [ Rémi Cardona ]
+  * Update packaging for Lenny.
+  * Add myself to Uploaders.
+
+ -- Rémi Cardona <remi.cardona@smartjog.com>  Thu, 18 Mar 2010 16:21:47 +0100
 
 python-sjutils (1.16.1-1) unstable; urgency=low
 
