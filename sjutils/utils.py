@@ -156,9 +156,16 @@ def html_escape(text):
     """
     # We start by replacing '&'
     text = text.replace('&', '&amp;')
+
+    if isinstance(text, unicode):
+        # We use this to avoid UnicodeDecodeError in text.replace()
+        convert = lambda x: x.decode('iso-8859-1')
+    else:
+        convert = lambda x: x
+
     # We don't want '&' in our dict, as it would mess up any previous
     # replace() we'd done
-    entitydefs_inverted = ((value, key)
+    entitydefs_inverted = ((convert(value), key)
                            for key, value
                            in entitydefs.iteritems()
                            if value != '&')
