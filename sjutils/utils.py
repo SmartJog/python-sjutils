@@ -509,7 +509,8 @@ class PgConnManager(object):
 
     def rollback(self, ctx):
         """ Rollback changes to database. """
-        if not ctx['conn'].closed:
+        # FIXME: ctx['conn'] is None if execute failed, see bug #3085
+        if ctx['conn'] and not ctx['conn'].closed:
             ctx['conn'].rollback()
 
     def release(self, ctx):
