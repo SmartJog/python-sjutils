@@ -1,4 +1,4 @@
-Version 1.17.0~dev
+Version 1.17.0 Released on 2010/04/26
 
 	* Switched sjutils/utils.py's coding to UTF-8 for RT #12335.
 	* Added a html_escape() function, closes: #3024.
