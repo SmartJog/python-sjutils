@@ -1,4 +1,4 @@
-Version 1.17.1~dev
+Version 1.17.1 Released on 2010/04/29
 
 	* PgConnManager: Correct bad behaviour when SQL or Database error happen.
 
