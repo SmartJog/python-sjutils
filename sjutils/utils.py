@@ -423,14 +423,17 @@ class PgConnManager(object):
                 # Connexion(s) wasn't released by user, so we have to release it/them
                 for ctx in ctx_list:
                     if ctx['conn'] is not None:
+                        self.rollback(ctx)
                         self.release(ctx)
 
                 return ret
             except psycopg2.Error, _error:
                 for ctx in ctx_list:
+                    self.rollback(ctx)
                     ctx['cursor'] = None
                     if ctx['conn']:
-                        self.__conn_pool__.putconn(ctx['conn'], close=True)
+                        close =  ctx['conn'].closed > 0
+                        self.__conn_pool__.putconn(ctx['conn'], close=close)
                     ctx['conn'] = None
                 raise
             except Exception:
@@ -483,10 +486,6 @@ class PgConnManager(object):
             else:
                 ctx['cursor'].execute(query)
         except psycopg2.Error, _error:
-            ctx['cursor'] = None
-            if ctx['conn']:
-                self.__conn_pool__.putconn(ctx['conn'], close=True)
-            ctx['conn'] = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
@@ -497,11 +496,6 @@ class PgConnManager(object):
         try:
             ctx['conn'].commit()
         except psycopg2.Error, _error:
-            self.rollback()
-            ctx['cursor'] = None
-            if ctx['conn']:
-                self.__conn_pool__.putconn(ctx['conn'], close=True)
-            ctx['conn'] = None
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
