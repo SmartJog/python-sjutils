@@ -1,10 +1,10 @@
 Source: python-sjutils
-XS-Python-Version: >= 2.5
+XS-Python-Version: >= 2.4
 Priority: optional
 Section: python
 Maintainer: Philippe Bridant <philippe.bridant@smartjog.com>
 Uploaders: Gilles Dartiguelongue <gdartigu@smartjog.com>, Nicolas Noirbent <nicolas.noirbent@smartjog.com>, Thomas Souvignet <thomas.souvignet@smartjog.com>, Rémi Cardona <remi.cardona@smartjog.com>
-Build-Depends: cdbs (>= 0.4.43), debhelper (>= 5.0.38), python-central (>= 0.6), python-psycopg2
+Build-Depends: cdbs (>= 0.4.43), debhelper (>= 5.0.38), python-central, python-psycopg2
 Standards-Version: 3.8.3
 
 Package: python-sjutils
