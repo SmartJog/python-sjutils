@@ -1,3 +1,8 @@
+Version 1.17.2~dev
+
+	* PgConnManager: Detect database disconnection and wipe ctx connection if
+	appropriate.
+
 Version 1.17.1 Released on 2010/04/29
 
 	* PgConnManager: Correct bad behaviour when SQL or Database error happen.

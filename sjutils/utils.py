@@ -418,28 +418,23 @@ class PgConnManager(object):
         try:
             ctx_list = self.connect()
             try:
-                ret = func(self, ctx_list, *args, **kw)
+                try:
+                        ret = func(self, ctx_list, *args, **kw)
+                except psycopg2.OperationalError, _error:
+                        # We got a database disconnection not catched by user, wiping all connection because 
+                        # psycopg2 does not fill correctly the database connection 'closed' attribute in case of disconnection
+                        self.release_all(ctx_list, close=True)
+                        raise
 
                 # Connexion(s) wasn't released by user, so we have to release it/them
-                for ctx in ctx_list:
-                    if ctx['conn'] is not None:
-                        self.rollback(ctx)
-                        self.release(ctx)
+                self.release_all(ctx_list, rollback=True)
 
                 return ret
             except psycopg2.Error, _error:
-                for ctx in ctx_list:
-                    self.rollback(ctx)
-                    ctx['cursor'] = None
-                    if ctx['conn']:
-                        close =  ctx['conn'].closed > 0
-                        self.__conn_pool__.putconn(ctx['conn'], close=close)
-                    ctx['conn'] = None
+                self.release_all(ctx_list, rollback=True)
                 raise
             except Exception:
-                for ctx in ctx_list:
-                    self.rollback(ctx)
-                    self.release(ctx)
+                self.release_all(ctx_list, rollback=True)
                 raise
         except psycopg2.Error, _error:
             # We do not want our users to have to 'import psycopg2' to
@@ -481,10 +476,15 @@ class PgConnManager(object):
                 ctx['conn'] = self.__conn_pool__.getconn()
             if not ctx['cursor']:
                 ctx['cursor'] = ctx['conn'].cursor()
-            if options:
-                ctx['cursor'].execute(query, options)
-            else:
-                ctx['cursor'].execute(query)
+            try:
+                if options:
+                    ctx['cursor'].execute(query, options)
+                else:
+                    ctx['cursor'].execute(query)
+            except psycopg2.OperationalError, _error:
+                # We got a database disconnection, wiping connection
+                self.release(ctx, close=True)
+                raise
         except psycopg2.Error, _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
@@ -494,7 +494,12 @@ class PgConnManager(object):
     def commit(self, ctx):
         """ Commit changes to dabatase. """
         try:
-            ctx['conn'].commit()
+            try:
+                ctx['conn'].commit()
+            except psycopg2.OperationalError, _error:
+                # We got a database disconnection, wiping connection
+                self.release(ctx, close=True)
+                raise
         except psycopg2.Error, _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
@@ -507,17 +512,22 @@ class PgConnManager(object):
         if ctx['conn'] and not ctx['conn'].closed:
             ctx['conn'].rollback()
 
-    def release(self, ctx):
+    def release(self, ctx, rollback=False, close=False):
         """ Release database connection. """
+
+        if rollback:
+            self.rollback(ctx)
+
         ctx['cursor'] = None
         if ctx['conn']:
-            self.__conn_pool__.putconn(ctx['conn'], close=False)
+            closeit =  close or (ctx['conn'].closed > 0)
+            self.__conn_pool__.putconn(ctx['conn'], close=closeit)
         ctx['conn'] = None
 
-    def release_all(self, ctx_list):
+    def release_all(self, ctx_list, rollback=False, close=False):
         """ Release all database connections from a context list. """
         for ctx in ctx_list:
-            self.release(ctx)
+            self.release(ctx, rollback=rollback, close=close)
         ctx_list = None
 
     def fetchall(self, ctx):
