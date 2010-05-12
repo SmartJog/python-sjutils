@@ -1,4 +1,4 @@
-Version 1.18.0~dev
+Version 1.18.0 Released on 2010/05/12
 
 	* Copy LoggerAdapter from python 2.6 "logging" module, refs: #3057.
 

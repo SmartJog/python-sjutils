@@ -1,8 +1,8 @@
-python-sjutils (1.18.0~dev-1) unstable; urgency=low
+python-sjutils (1.18.0-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Rémi Cardona <remi.cardona@smartjog.com>  Wed, 12 May 2010 11:22:24 +0200
+ -- Rémi Cardona <remi.cardona@smartjog.com>  Wed, 12 May 2010 17:20:31 +0200
 
 python-sjutils (1.17.2-1) unstable; urgency=low
 
