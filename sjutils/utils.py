@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os, string, dircache, time, sys, md5, sha, re
+import os, string, dircache, time, sys, hashlib, re
 from htmlentitydefs import entitydefs
 import threading
 
@@ -16,7 +16,7 @@ def ismd5(md5):
 
 def md5sum(f):
     f = file(f)
-    md = md5.new()
+    md = hashlib.md5()
     tmp = f.read(16384)
     while tmp:
         md.update(tmp)
@@ -26,7 +26,7 @@ def md5sum(f):
 
 def sha1sum(path):
     f = file(path)
-    sh = sha.new()
+    sh = hashlib.sha1()
     tmp = f.read(16384)
     while tmp:
         sh.update(tmp)
