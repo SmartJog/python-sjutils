@@ -1,6 +1,7 @@
-Version 1.18.1~dev
+Version 1.19.0~dev
 
 	* Fixed importing dreprecated md5 and sha module, refs: #3342.
+	* Added fetchmany and get_rowcount to PgConnManager, refs: #3481.
 
 Version 1.18.0 Released on 2010/05/12
 

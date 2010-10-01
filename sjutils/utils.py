@@ -534,6 +534,14 @@ class PgConnManager(object):
         """ Return all rows of current request. """
         return ctx['cursor'].fetchall()
 
+    def fetchmany(self, ctx, arraysize=1000):
+        """ Return @arraysize rows of current request. """
+        return ctx['cursor'].fetchmany(arraysize)
+
+    def get_rowcount(self, ctx):
+        """Get the cursor's rowcount attribute of the given context @ctx."""
+        return ctx['cursor'].rowcount
+
     def fetchone(self, ctx):
         """ Return one row of current request. """
         return ctx['cursor'].fetchone()
