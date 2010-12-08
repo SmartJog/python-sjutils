@@ -421,7 +421,7 @@ class PgConnManager(object):
                 try:
                         ret = func(self, ctx_list, *args, **kw)
                 except psycopg2.OperationalError, _error:
-                        # We got a database disconnection not catched by user, wiping all connection because 
+                        # We got a database disconnection not catched by user, wiping all connection because
                         # psycopg2 does not fill correctly the database connection 'closed' attribute in case of disconnection
                         self.release_all(ctx_list, close=True)
                         raise
