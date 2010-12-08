@@ -538,6 +538,16 @@ class PgConnManager(object):
         """ Return @arraysize rows of current request. """
         return ctx['cursor'].fetchmany(arraysize)
 
+    def fetchgenerator(self, ctx):
+        """ A basic generator to iterate through the current request's
+        result rows. """
+        while True:
+            results = self.fetchmany(ctx)
+            if not results:
+                raise StopIteration
+            for result in results:
+                yield result
+
     def get_rowcount(self, ctx):
         """Get the cursor's rowcount attribute of the given context @ctx."""
         return ctx['cursor'].rowcount
