@@ -5,6 +5,7 @@ import sys
 import re
 from htmlentitydefs import entitydefs
 import threading
+import time
 
 def pretty_size(size, verbose=False):
     """
