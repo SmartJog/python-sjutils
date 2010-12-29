@@ -129,7 +129,7 @@ class OrderedRawConfigParser(ConfigParser.RawConfigParser):
         """Write an .ini-format representation of the configuration
         state. Sections are written sorted."""
         if self._defaults:
-            fp.write("[%s]\n" % DEFAULTSECT)
+            fp.write("[%s]\n" % ConfigParser.DEFAULTSECT)
             for (key, value) in self._defaults.items():
                 fp.write("%s = %s\n" % (key, str(value).replace('\n', '\n\t')))
             fp.write("\n")
