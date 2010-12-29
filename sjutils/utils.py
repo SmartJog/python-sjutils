@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os, sys, re
+import os
+import sys
+import re
 from htmlentitydefs import entitydefs
 import threading
 
