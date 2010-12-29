@@ -171,8 +171,6 @@ def all(iterable, predicate = bool, *args, **kw):
             return False
     return True
 
-import os
-import logging
 import bz2
 import gzip
 from logging.handlers import BaseRotatingHandler
