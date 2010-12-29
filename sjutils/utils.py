@@ -174,11 +174,7 @@ def all(iterable, predicate = bool, *args, **kw):
 import bz2
 import gzip
 from logging.handlers import BaseRotatingHandler
-
-try:
-    import codecs
-except ImportError:
-    codecs = None
+import codecs
 
 class CompressedRotatingFileHandler(BaseRotatingHandler):
 
