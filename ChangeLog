@@ -1,3 +1,8 @@
+Version 1.21.0~dev
+
+	* Use psycopg2 DictCursor by default in PgConnManager.execute,
+	  closes: #3977.
+
 Version 1.20.1 Released on 2011/02/16
 
 	* Remove some useless functions.

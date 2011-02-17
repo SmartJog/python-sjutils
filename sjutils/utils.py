@@ -243,6 +243,8 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
 
 from psycopg2.pool import ThreadedConnectionPool
 import psycopg2
+import psycopg2.extras
+
 
 def manage_pgconn(user, password, dbname, host='localhost', port='5432'):
     """ Manage the postgresql database connection using
@@ -381,7 +383,7 @@ class PgConnManager(object):
             if not ctx['conn']:
                 ctx['conn'] = self.__conn_pool__.getconn()
             if not ctx['cursor']:
-                ctx['cursor'] = ctx['conn'].cursor()
+                ctx['cursor'] = ctx['conn'].cursor(cursor_factory=psycopg2.extras.DictCursor)
             try:
                 if options:
                     ctx['cursor'].execute(query, options)
