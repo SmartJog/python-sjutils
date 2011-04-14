@@ -6,6 +6,7 @@ Version 1.21.0~dev
 	  add a unit test for checking it.
 	* Add README.rst.
 	* Add license information in COPYING.
+	* Add logging capacity to PgConnManager.
 
 Version 1.20.1 Released on 2011/02/16
 
