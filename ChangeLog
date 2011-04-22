@@ -4,6 +4,7 @@ Version 1.21.0~dev
 	  closes: #3977.
 	* Move classes to sjutils submodules, keep backward compatibility and
 	  add a unit test for checking it.
+	* Add README.rst.
 
 Version 1.20.1 Released on 2011/02/16
 
