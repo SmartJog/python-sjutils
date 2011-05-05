@@ -1,9 +1,13 @@
 python-sjutils (1.21.0~dev-1) unstable; urgency=low
 
+  [ Matthieu Bouron ]
   * New upstream release, closes: #3977.
   * Added myself to Uploaders.
 
- -- Matthieu Bouron <matthieu.bouron@smartjog.com>  Thu, 17 Feb 2011 12:12:34 +0100
+  [ Gilles Dartiguelongue ]
+  * Fix email address in Uploaders.
+
+ -- Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>  Thu, 05 May 2011 17:55:41 +0200
 
 python-sjutils (1.20.1-1) unstable; urgency=low
 
