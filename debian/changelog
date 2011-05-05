@@ -1,4 +1,4 @@
-python-sjutils (1.21.0~dev-1) unstable; urgency=low
+python-sjutils (1.21.0-1) unstable; urgency=low
 
   [ Matthieu Bouron ]
   * New upstream release, closes: #3977.
@@ -7,7 +7,7 @@ python-sjutils (1.21.0~dev-1) unstable; urgency=low
   [ Gilles Dartiguelongue ]
   * Fix email address in Uploaders.
 
- -- Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>  Thu, 05 May 2011 17:55:41 +0200
+ -- Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>  Thu, 05 May 2011 17:56:48 +0200
 
 python-sjutils (1.20.1-1) unstable; urgency=low
 
