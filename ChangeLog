@@ -1,4 +1,4 @@
-Version 1.21.1~dev
+Version 1.21.1 Released on 2011/11/04
 
 	* Do not pass extra arguments to object.__new__, closes: #4370.
 	* Update README.rst.
