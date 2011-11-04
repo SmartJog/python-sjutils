@@ -58,11 +58,13 @@ then.
 * Guillaume Camera <guillaume.camera@smartjog.com>
 * Jean-Philippe Garcia Ballester <jeanphilippe.garciaballester@smartjog.com>
 * Laurent Corbes <laurent.corbes@smartjog.com>
+* Laurent Defert <laurent.defert@smartjog.com>
 * Matthieu Bouron <matthieu.bouron@smartjog.com>
 * Nicolas Noirbent <nicolas.noirbent@smartjog.com>
 * Philippe Bridant <philippe.bridant@smartjog.com>
 * Rémi Cardona <remi.cardona@smartjog.com>
 * Romain Degez <romain.degez@smartjog.com>
+* Stéphane Kanschine <stephane.kanschine@smartjog.com>
 * Thomas Meson <thomas.meson@smartjog.com>
 * Thomas Souvignet <thomas.souvignet@smartjog.com>
 
