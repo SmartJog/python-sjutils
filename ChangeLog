@@ -2,6 +2,7 @@ Version 1.21.1~dev
 
 	* Do not pass extra arguments to object.__new__, closes: #4370.
 	* Update README.rst.
+	* Add factory object unicity check.
 
 Version 1.21.0 Released on 2011/05/05
 
