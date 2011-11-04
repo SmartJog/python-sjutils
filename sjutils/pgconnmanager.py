@@ -81,7 +81,7 @@ class PgConnManager(object):
         db_str = "host=%(host)s port=%(port)s user=%(user)s password=%(password)s dbname=%(dbname)s" % db_opts
 
         if not self._instances.has_key(db_str):
-            self._instances[db_str] = super(PgConnManager, self).__new__(self, *kargs, **kwargs)
+            self._instances[db_str] = super(PgConnManager, self).__new__(self)
             self._instances[db_str].lock = threading.Lock()
             self._instances[db_str].log = logger
 

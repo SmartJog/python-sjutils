@@ -1,3 +1,9 @@
+python-sjutils (1.21.1~dev-1) unstable; urgency=low
+
+  * New upstream release, closes: #4370.
+
+ -- Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>  Fri, 04 Nov 2011 17:31:34 +0100
+
 python-sjutils (1.21.0-2) unstable; urgency=low
 
   * Update debian/control Build-Depends, Standards-Version.
