@@ -104,7 +104,7 @@ class PgConnManager(object):
                     self.release_all(ctx_list, close=True)
                     raise
 
-                # Connexion(s) wasn't released by user, so we have to release it/them
+                # Connection(s) wasn't released by user, so we have to release it/them
                 self.release_all(ctx_list, rollback=True)
 
                 return ret
