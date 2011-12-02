@@ -1,6 +1,7 @@
-Version 1.21.2~dev
+Version 1.22.0~dev
 
 	* Slightly improve pretty_size() behaviour, add tests.
+	* Add a paginate() function.
 
 Version 1.21.1 Released on 2011/11/04
 

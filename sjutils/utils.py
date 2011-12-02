@@ -164,3 +164,24 @@ def flatten_list(my_list):
             result.append(elt)
 
     return result
+
+def paginate(iterable, pagesize):
+    """
+    Pure generator-based paginate operator, from
+    http://paste.pocoo.org/show/173972/
+
+    paginate([1,2,3,4,5,6,7], 3) -> [[1,2,3], [4,5,6], [7]]
+
+    This function makes clever use of floor division for the groupby()
+    key function, so that the key changes every pagesize items,
+    prompting the yield of a new page.
+    """
+
+    import itertools
+    counter = itertools.count()
+
+    def key_function(elt):
+        return counter.next() // pagesize
+
+    for key, values in itertools.groupby(iterable, key_function):
+        yield values
