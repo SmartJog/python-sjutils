@@ -6,5 +6,6 @@ sjutilsexec_PYTHON = \
     loggeradapter.py \
     logginghandler.py \
     pgconnmanager.py \
+    textdecoration.py \
     threadpool.py \
     utils.py
