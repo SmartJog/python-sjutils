@@ -1,9 +1,13 @@
 python-sjutils (1.23.0~dev-1) unstable; urgency=low
 
+  [ Hugo Chevalier ]
   * New upstream release.
   * Add myself to Uploaders.
 
- -- Hugo Chevalier <hugo.chevalier@smartjog.com>  Thu, 09 Feb 2012 14:08:42 +0100
+  [ Gilles Dartiguelongue ]
+  * Switch to dpkg-source 3.0 (quilt) format.
+
+ -- Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>  Tue, 14 Feb 2012 15:02:53 +0100
 
 python-sjutils (1.22.0-1) unstable; urgency=low
 
