@@ -89,6 +89,7 @@ class PgConnManager(object):
 
     def __init__(self, db_opts):
         self.__params__ = db_opts
+        self.__params__['isolation_level'] = psycopg2.extensions.ISOLATION_LEVEL_READ_UNCOMMITTED
         if not hasattr(self, '__conn_pool__'):
             self.__conn_pool__ = None
 
@@ -168,6 +169,8 @@ class PgConnManager(object):
         try:
             if not ctx['conn']:
                 ctx['conn'] = self.__conn_pool__.getconn()
+            if self.__params__.has_key('isolation_level'):
+                ctx['conn'].set_isolation_level(self.__params__['isolation_level'])
             if not ctx['cursor']:
                 ctx['cursor'] = ctx['conn'].cursor(cursor_factory=psycopg2.extras.DictCursor)
             try:
@@ -299,3 +302,11 @@ class PgConnManager(object):
             'user': self.__params__['user'],
         })
         return ctx['cursor'].fetchone()
+
+    def set_isolation_level(self, isolation_level):
+        """ Set the isolation level. """
+        self.__params__['isolation_level'] = isolation_level
+
+    def get_isolation_level(self):
+        """ Set the isolation level. """
+        return self.__params__['isolation_level']
