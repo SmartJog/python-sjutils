@@ -17,9 +17,9 @@ def pretty_size(size, verbose=False):
     base = _("Bytes")
     for unit in ["", "Kilo", "Mega", "Giga", "Tera", "Peta", "Exa", "Zetta", "Yotta"]:
         if verbose:
-            final_unit =  len(unit) and  (unit + base) or  base
+            final_unit = len(unit) and (unit + base) or base
         else:
-            final_unit =  len(unit) and  (unit[0] +  base[0]) or base[0]
+            final_unit = len(unit) and (unit[0] + base[0]) or base[0]
 
         if size < 1024.0:
             import math
@@ -40,6 +40,7 @@ for k, v in entitydefs.items():
 _badchars_regex = re.compile('|'.join(entitydefs.values()))
 _been_fixed_regex = re.compile('&\w+;|&#[0-9]+;')
 
+
 def html_entity_fixer(text, skipchars=[], extra_careful=1):
     # if extra_careful we don't attempt to do anything to
     # the string if it might have been converted already.
@@ -50,10 +51,10 @@ def html_entity_fixer(text, skipchars=[], extra_careful=1):
         skipchars = [skipchars]
 
     keyholder = []
-    for x in _badchars_regex.findall(text):
-        if x not in skipchars:
-            keyholder.append(x)
-    text = text.replace('&','&amp;')
+    for char in _badchars_regex.findall(text):
+        if char not in skipchars:
+            keyholder.append(char)
+    text = text.replace('&', '&amp;')
     text = text.replace('\x80', '&#8364;')
     for each in keyholder:
         if each == '&':
@@ -65,6 +66,7 @@ def html_entity_fixer(text, skipchars=[], extra_careful=1):
 
         text = text.replace(each, better)
     return text
+
 
 def html_escape(text):
     """
@@ -89,21 +91,24 @@ def html_escape(text):
         text = text.replace(key, '&%s;' % value)
     return text
 
-def any(iterable, predicate = bool, *args, **kw):
+
+def any(iterable, predicate=bool, *args, **kw):
     """Return True if predicate(x, *args, **kw) is True for any x in the iterable."""
     for elt in iterable:
         if predicate(elt, *args, **kw):
             return True
     return False
 
-def all(iterable, predicate = bool, *args, **kw):
+
+def all(iterable, predicate=bool, *args, **kw):
     """Return True if predicate(x, *args, **kw) is True for all values x in the iterable."""
     for elt in iterable:
         if not predicate(elt, *args, **kw):
             return False
     return True
 
-def flatten_dict(dictionary, sep = '/'):
+
+def flatten_dict(dictionary, sep='/'):
     """
     Flatten a Python dictionary, in an iterative way (no stack
     overflow)
@@ -128,6 +133,7 @@ def flatten_dict(dictionary, sep = '/'):
             result[key] = value
 
     return result
+
 
 def flatten_list(my_list):
     """
@@ -165,6 +171,7 @@ def flatten_list(my_list):
 
     return result
 
+
 def paginate(iterable, pagesize):
     """
     Pure generator-based paginate operator, from
@@ -180,8 +187,8 @@ def paginate(iterable, pagesize):
     import itertools
     counter = itertools.count()
 
-    def key_function(elt):
+    def key_function(_elt):
         return counter.next() // pagesize
 
-    for key, values in itertools.groupby(iterable, key_function):
+    for _key, values in itertools.groupby(iterable, key_function):
         yield values
