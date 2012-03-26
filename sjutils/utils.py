@@ -192,3 +192,27 @@ def paginate(iterable, pagesize):
 
     for _key, values in itertools.groupby(iterable, key_function):
         yield values
+
+
+def compare_versions(vers_str1, vers_str2, operator='<'):
+    """ Compare two version strings according to @operator.
+
+    compare_versions('1.2.0', '1.10.0', '<') -> True
+    compare_versions('1.2.0', '1.10.0', '>') -> False
+    """
+    vers1 = tuple(int(elt) for elt in vers_str1.split('.'))
+    vers2 = tuple(int(elt) for elt in vers_str2.split('.'))
+
+    if operator not in ('<', '<=', '==', '>=', '>', '!='):
+        raise ValueError('Operator %s is not supported' % operator)
+
+    if operator == '!=' and vers1 != vers2:
+        return True
+    if '=' in operator and vers1 == vers2:
+        return True
+    if '<' in operator and vers1 < vers2:
+        return True
+    if '>' in operator and vers1 > vers2:
+        return True
+
+    return False

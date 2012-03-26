@@ -7,4 +7,5 @@ TESTS = test_flatten.py \
 	test_api.py \
 	test_factory.py \
 	test_paginate.py \
-	test_pretty_size.py
+	test_pretty_size.py \
+	test_compare_versions.py
