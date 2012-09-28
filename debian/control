@@ -3,7 +3,11 @@ XS-Python-Version: >= 2.5
 Priority: optional
 Section: python
 Maintainer: Philippe Bridant <philippe.bridant@smartjog.com>
-Uploaders: Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>, Nicolas Noirbent <nicolas.noirbent@smartjog.com>, Thomas Souvignet <thomas.souvignet@smartjog.com>, Rémi Cardona <remi.cardona@smartjog.com>, Matthieu Bouron <matthieu.bouron@smartjog.com>, Stéphane Kanschine <stephane.kanschine@smartjog.com>, Hugo Chevalier <hugo.chevalier@smartjog.com>
+Uploaders: Nicolas Noirbent <nicolas.noirbent@smartjog.com>,
+ Thomas Souvignet <thomas.souvignet@smartjog.com>,
+ Rémi Cardona <remi.cardona@smartjog.com>,
+ Matthieu Bouron <matthieu.bouron@smartjog.com>,
+ Aurélien Dunand <aurelien.dunand@smartjog.com>
 Build-Depends: cdbs (>= 0.4.89), debhelper (>= 8), python-central (>= 0.6), python-psycopg2
 Standards-Version: 3.9.2
 
