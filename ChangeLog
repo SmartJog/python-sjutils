@@ -1,3 +1,7 @@
+Version 1.25.0~dev
+
+	* Use the READ_COMMITED isolation level explicitly by default
+
 Version 1.24.0 Released on 2012/09/28
 
 	* Add version comparison function, closes: #5636
