@@ -170,7 +170,7 @@ class PgConnManager(object):
         try:
             if not ctx['conn']:
                 ctx['conn'] = self.__conn_pool__.getconn()
-            if self.__params__.has_key('isolation_level'):
+            if 'isolation_level' in self.__params__ and self.__params__['isolation_level'] != ctx['conn'].isolation_level:
                 ctx['conn'].set_isolation_level(self.__params__['isolation_level'])
             if not ctx['cursor']:
                 ctx['cursor'] = ctx['conn'].cursor(cursor_factory=psycopg2.extras.DictCursor)
