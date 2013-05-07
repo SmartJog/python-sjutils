@@ -1,6 +1,8 @@
-python-sjutils (1.25.0~dev-1) unstable; urgency=low
+python-sjutils (1.25.0-1) unstable; urgency=low
 
   * New upstream version
+  * Add myself to Uploaders
+  * Clean the debian/control file
 
  -- Nicolas Delvaux <nicolas.delvaux@smartjog.com>  Mon, 11 Mar 2013 16:40:38 +0100
 

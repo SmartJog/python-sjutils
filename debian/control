@@ -3,12 +3,12 @@ XS-Python-Version: >= 2.5
 Priority: optional
 Section: python
 Maintainer: Philippe Bridant <philippe.bridant@smartjog.com>
-Uploaders: Nicolas Noirbent <nicolas.noirbent@smartjog.com>,
- Thomas Souvignet <thomas.souvignet@smartjog.com>,
- Rémi Cardona <remi.cardona@smartjog.com>,
- Matthieu Bouron <matthieu.bouron@smartjog.com>,
- Aurélien Dunand <aurelien.dunand@smartjog.com>
-Build-Depends: cdbs (>= 0.4.89), debhelper (>= 8), python-central (>= 0.6), python-psycopg2
+Uploaders: Aurélien Dunand <aurelien.dunand@smartjog.com>,
+	   Nicolas Delvaux <nicolas.delvaux@smartjog.com>
+Build-Depends: cdbs (>= 0.4.89),
+	       debhelper (>= 8),
+	       python-central (>= 0.6),
+	       python-psycopg2
 Standards-Version: 3.9.2
 
 Package: python-sjutils
@@ -16,6 +16,8 @@ Replaces: python2.3-sjutils
 Conflicts: python2.3-sjutils
 XB-Python-Version: ${python:Versions}
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-psycopg2
+Depends: ${misc:Depends},
+	 ${python:Depends},
+	 python-psycopg2
 Description: SmartJog sjutils
  several Python utils for SmartJog tools
