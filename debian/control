@@ -2,9 +2,9 @@ Source: python-sjutils
 XS-Python-Version: >= 2.5
 Priority: optional
 Section: python
-Maintainer: Philippe Bridant <philippe.bridant@smartjog.com>
-Uploaders: Aurélien Dunand <aurelien.dunand@smartjog.com>,
-	   Nicolas Delvaux <nicolas.delvaux@smartjog.com>
+Maintainer: Aurélien Dunand <aurelien.dunand@smartjog.com>
+Uploaders: Nicolas Delvaux <nicolas.delvaux@smartjog.com>,
+           Anaël Beutot <anael.beutot@smartjog.com>
 Build-Depends: cdbs (>= 0.4.89),
 	       debhelper (>= 8),
 	       python-central (>= 0.6),
