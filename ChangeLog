@@ -1,3 +1,7 @@
+Version 1.25.1~dev
+
+	* TODO
+
 Version 1.25.0 Released on 2013/05/07
 
 	* Use the READ_COMMITED isolation level explicitly by default
