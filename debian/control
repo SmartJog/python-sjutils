@@ -1,10 +1,8 @@
 Source: python-sjutils
 Priority: optional
 Section: python
-Maintainer: Aurélien Dunand <aurelien.dunand@arkena.com>
-Uploaders: Nicolas Delvaux <nicolas.delvaux@arkena.com>,
-           Anaël Beutot <anael.beutot@arkena.com>
-Build-Depends: debhelper (>= 8),
+Maintainer: Nicolas Delvaux <nicolas.delvaux@cji.paris>
+Build-Depends: debhelper (>= 9),
                python-all (>= 2.6.6-3),
                dh-python,
                python-psycopg2
