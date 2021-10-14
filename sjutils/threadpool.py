@@ -1,5 +1,3 @@
-# -*- coding: UTF-8 -*-
-
 # Code downloaded at http://chrisarndt.de/projects/threadpool/threadpool.py.html
 # Available under the MIT license
 # Change variable namings to fit a bit more with PEP 8
@@ -57,7 +55,7 @@ __license__ = "MIT license"
 # standard library modules
 import sys
 import threading
-import Queue
+import queue
 import traceback
 
 
@@ -164,7 +162,7 @@ class WorkerThread(threading.Thread):
             # the while loop again, to give the thread a chance to exit.
             try:
                 request = self._requests_queue.get(True, self._poll_timeout)
-            except Queue.Empty:
+            except queue.Empty:
                 continue
             else:
                 if self._dismissed.isSet():
@@ -277,8 +275,8 @@ class ThreadPool:
             ``ThreadPool.queue_request()`` and catch ``Queue.Full`` exceptions.
         """
 
-        self._requests_queue = Queue.Queue(q_size)
-        self._results_queue = Queue.Queue(resq_size)
+        self._requests_queue = queue.Queue(q_size)
+        self._results_queue = queue.Queue(resq_size)
         self.workers = []
         self.dismissed_workers = []
         self.work_requests = {}
@@ -358,7 +356,7 @@ class ThreadPool:
                     request.callback(request, result)
 
                 del self.work_requests[request.request_id]
-            except Queue.Empty:
+            except queue.Empty:
                 break
 
     def wait(self):

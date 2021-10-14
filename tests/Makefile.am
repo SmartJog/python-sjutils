@@ -1,6 +1,6 @@
 dist_check_SCRIPTS = ${TESTS}
 
-TESTS_ENVIRONMENT = PYTHONPATH=@top_srcdir@ python
+TESTS_ENVIRONMENT = PYTHONPATH=@top_srcdir@
 
 TESTS = test_flatten.py \
 	test_html_escape.py \

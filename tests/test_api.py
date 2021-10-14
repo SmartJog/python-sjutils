@@ -1,5 +1,4 @@
-#! /usr/bin/python
-# -*- coding: utf-8 -*-
+#! /usr/bin/python3
 
 import unittest
 import sjutils
@@ -14,8 +13,6 @@ class TestAPI(unittest.TestCase):
             "DefaultDict",
             # from logger2
             "Logger2",
-            # from loggeradapter
-            "LoggerAdapter",
             # from pgconnmanager
             "PgConnManager",
             "PgConnProxy",

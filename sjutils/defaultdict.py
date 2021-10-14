@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 class DefaultDict(dict):
     """Trivial DefaultDict implementation. Basically returns the
     default value for missing keys.

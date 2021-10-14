@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import sys
 import logging
 import threading
@@ -31,7 +29,7 @@ def manage_pgconn_conf(conf_file, section="database"):
     information stored on conf_file"""
 
     def __nested__(func):
-        from ConfigParser import RawConfigParser
+        from configparser import RawConfigParser
 
         conf = RawConfigParser()
         conf.read(conf_file)
@@ -41,7 +39,7 @@ def manage_pgconn_conf(conf_file, section="database"):
     return __nested__
 
 
-class PgConnProxy(object):
+class PgConnProxy:
     """
     A proxy class to allow compatibility between
     PgConnManager's Factory system and decorators.
@@ -60,7 +58,7 @@ class PgConnProxy(object):
         return manager.decorate(self.__func__, *args, **kw)
 
 
-class PgConnManager(object):
+class PgConnManager:
     """
     Manage postgresql database connections.
     """
@@ -82,7 +80,7 @@ class PgConnManager(object):
             logger = logging.getLogger("sjutils.pgconnmanager")
 
         # We can either accept 'database' or 'dbname' as an input
-        if db_opts.has_key("database") and not db_opts.has_key("dbname"):
+        if "database" in db_opts and "dbname" not in db_opts:
             db_opts["dbname"] = db_opts["database"]
 
         # This is ugly but since dict types cannot be used
@@ -94,7 +92,7 @@ class PgConnManager(object):
             % db_opts
         )
 
-        if not self._instances.has_key(db_str):
+        if db_str not in self._instances:
             self._instances[db_str] = super(PgConnManager, self).__new__(self)
             self._instances[db_str].lock = threading.Lock()
             self._instances[db_str].log = logger
@@ -116,7 +114,7 @@ class PgConnManager(object):
             try:
                 try:
                     ret = func(self, ctx_list, *args, **kw)
-                except psycopg2.OperationalError, _error:
+                except psycopg2.OperationalError as _error:
                     # We got a database disconnection not catched by user, wiping all connection because
                     # psycopg2 does not fill correctly the database connection 'closed' attribute in case of disconnection
                     self.release_all(ctx_list, close=True)
@@ -126,17 +124,17 @@ class PgConnManager(object):
                 self.release_all(ctx_list, rollback=True)
 
                 return ret
-            except psycopg2.Error, _error:
+            except psycopg2.Error as _error:
                 self.release_all(ctx_list, rollback=True)
                 raise
             except Exception:
                 self.release_all(ctx_list, rollback=True)
                 raise
-        except psycopg2.Error, _error:
+        except psycopg2.Error as _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise self.DatabaseError, value, traceback
+            raise self.DatabaseError(value).with_traceback(traceback)
 
     def _new_ctx(self, mark=None):
         """Create a new context object."""
@@ -183,11 +181,11 @@ class PgConnManager(object):
             )
             return ctx_list
 
-        except psycopg2.Error, _error:
+        except psycopg2.Error as _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise self.DatabaseError, value, traceback
+            raise self.DatabaseError(value).with_traceback(traceback)
 
     def execute(self, ctx, query, options=None):
         """Execute an SQL query."""
@@ -217,15 +215,15 @@ class PgConnManager(object):
                     ctx["cursor"].execute(query, options)
                 else:
                     ctx["cursor"].execute(query)
-            except psycopg2.OperationalError, _error:
+            except psycopg2.OperationalError as _error:
                 # We got a database disconnection, wiping connection
                 self.release(ctx, close=True)
                 raise
-        except psycopg2.Error, _error:
+        except psycopg2.Error as _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise self.DatabaseError, value, traceback
+            raise self.DatabaseError(value).with_traceback(traceback)
 
     def commit(self, ctx):
         """Commit changes to dabatase."""
@@ -241,15 +239,15 @@ class PgConnManager(object):
         try:
             try:
                 ctx["conn"].commit()
-            except psycopg2.OperationalError, _error:
+            except psycopg2.OperationalError as _error:
                 # We got a database disconnection, wiping connection
                 self.release(ctx, close=True)
                 raise
-        except psycopg2.Error, _error:
+        except psycopg2.Error as _error:
             # We do not want our users to have to 'import psycopg2' to
             # handle the module's underlying database errors
             _, value, traceback = sys.exc_info()
-            raise self.DatabaseError, value, traceback
+            raise self.DatabaseError(value).with_traceback(traceback)
 
     def rollback(self, ctx):
         """Rollback changes to database."""

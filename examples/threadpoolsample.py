@@ -1,5 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
 
 import threading
 from threadpool import *
@@ -23,19 +22,22 @@ if __name__ == "__main__":
 
     # this will be called each time a result is available
     def print_result(request, result):
-        print "**** Result from request #%s: %r" % (request.request_id, result)
+        print("**** Result from request #%s: %r" % (request.request_id, result))
 
     # this will be called when an exception occurs within a thread
     # this example exception handler does little more than the default handler
     def handle_exception(request, exc_info):
         if not isinstance(exc_info, tuple):
             # Something is seriously wrong...
-            print request
-            print exc_info
+            print(request)
+            print(exc_info)
             raise SystemExit
-        print "**** Exception occured in request #%s: %s" % (
-            request.request_id,
-            exc_info,
+        print(
+            "**** Exception occured in request #%s: %s"
+            % (
+                request.request_id,
+                exc_info,
+            )
         )
 
     # assemble the arguments for each job to a list...
@@ -56,13 +58,13 @@ if __name__ == "__main__":
     )
 
     # we create a pool of 3 worker threads
-    print "Creating thread pool with 3 worker threads."
+    print("Creating thread pool with 3 worker threads.")
     main = ThreadPool(3)
 
     # then we put the work requests in the queue...
     for req in requests:
         main.queue_request(req)
-        print "Work request #%s added." % req.request_id
+        print("Work request #%s added." % req.request_id)
     # or shorter:
     # [main.putRequest(req) for req in requests]
 
@@ -77,21 +79,21 @@ if __name__ == "__main__":
         try:
             time.sleep(0.5)
             main.poll()
-            print "Main thread working...",
-            print "(active worker threads: %i)" % (threading.activeCount() - 1,)
+            print("Main thread working...", end=" ")
+            print("(active worker threads: %i)" % (threading.activeCount() - 1,))
             if i == 10:
-                print "**** Adding 3 more worker threads..."
+                print("**** Adding 3 more worker threads...")
                 main.create_workers(3)
             if i == 20:
-                print "**** Dismissing 2 worker threads..."
+                print("**** Dismissing 2 worker threads...")
                 main.dismiss_workers(2)
             i += 1
         except KeyboardInterrupt:
-            print "**** Interrupted!"
+            print("**** Interrupted!")
             break
         except NoResultsPending:
-            print "**** No pending results."
+            print("**** No pending results.")
             break
     if main.dismissed_workers:
-        print "Joining all dismissed worker threads..."
+        print("Joining all dismissed worker threads...")
         main.join_all_dismissed_workers()

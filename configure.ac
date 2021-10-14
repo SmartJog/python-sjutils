@@ -1,10 +1,10 @@
-AC_PREREQ(2.61)
+AC_PREREQ(2.67)
 
 AC_INIT([python-sjutils],[1.25.1~dev])
 
 AM_INIT_AUTOMAKE([foreign])
 
-AM_PATH_PYTHON
+AM_PATH_PYTHON([3])
 AC_PATH_PROG(MSGFMT, msgfmt)
 
 AC_SUBST([sjutilssysconfdir], [\$\(sysconfdir\)/sjutils])

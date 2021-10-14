@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
 import re
-from htmlentitydefs import entitydefs
+from html.entities import entitydefs
 
 
 def pretty_size(size, verbose=False):
@@ -37,10 +35,10 @@ def pretty_size(size, verbose=False):
 
 
 entitydefs_inverted = {}
-for k, v in entitydefs.items():
+for k, v in list(entitydefs.items()):
     entitydefs_inverted[v] = k
 
-_badchars_regex = re.compile("|".join(entitydefs.values()))
+_badchars_regex = re.compile("|".join(list(entitydefs.values())))
 _been_fixed_regex = re.compile("&\w+;|&#[0-9]+;")
 
 
@@ -78,7 +76,7 @@ def html_escape(text):
     # We start by replacing '&'
     text = text.replace("&", "&amp;")
 
-    if isinstance(text, unicode):
+    if isinstance(text, bytes):
         # We use this to avoid UnicodeDecodeError in text.replace()
         convert = lambda x: x.decode("iso-8859-1")
     else:
@@ -87,7 +85,7 @@ def html_escape(text):
     # We don't want '&' in our dict, as it would mess up any previous
     # replace() we'd done
     entitydefs_inverted = (
-        (convert(value), key) for key, value in entitydefs.iteritems() if value != "&"
+        (convert(value), key) for key, value in entitydefs.items() if value != "&"
     )
     for key, value in entitydefs_inverted:
         text = text.replace(key, "&%s;" % value)
@@ -124,7 +122,7 @@ def flatten_dict(dictionary, sep="/"):
     @return The flattened dictionary
     """
 
-    my_stack = dictionary.items()
+    my_stack = list(dictionary.items())
     result = {}
 
     while my_stack:
@@ -133,7 +131,7 @@ def flatten_dict(dictionary, sep="/"):
             my_stack.extend(
                 [
                     (key + sep + inner_key, inner_value)
-                    for inner_key, inner_value in value.iteritems()
+                    for inner_key, inner_value in value.items()
                 ]
             )
         else:
@@ -197,7 +195,7 @@ def paginate(iterable, pagesize):
     counter = itertools.count()
 
     def key_function(_elt):
-        return counter.next() // pagesize
+        return next(counter) // pagesize
 
     for _key, values in itertools.groupby(iterable, key_function):
         yield values

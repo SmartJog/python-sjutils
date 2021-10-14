@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import re
 
 
-class DebianVersion(object):
+class DebianVersion:
     """
     Class to compare Debian package version number format
     """

@@ -1,14 +1,8 @@
-# -*- coding: utf-8 -*-
 # FIXME: clean this up as modules are ported to using submodules directly
 
 from sjutils.defaultdict import DefaultDict
 
 from sjutils.logger2 import Logger2
-
-try:
-    from logging import LoggerAdapter
-except ImportError:
-    from sjutils.loggeradapter import LoggerAdapter
 
 from sjutils.pgconnmanager import (
     PgConnManager,

@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
-
-class TextDecoration(object):
+class TextDecoration:
     """Allows to decorate text in a terminal."""
 
     # styles

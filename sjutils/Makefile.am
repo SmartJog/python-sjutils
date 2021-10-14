@@ -4,7 +4,6 @@ sjutilsexec_PYTHON = \
     debversion.py \
     defaultdict.py \
     logger2.py \
-    loggeradapter.py \
     logginghandler.py \
     pgconnmanager.py \
     textdecoration.py \
