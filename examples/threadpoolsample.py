@@ -8,13 +8,13 @@ from threadpool import *
 # USAGE EXAMPLE
 ################
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import random
     import time
 
     # the work the threads will have to do (rather trivial in our example)
     def do_something(data):
-        time.sleep(random.randint(1,5))
+        time.sleep(random.randint(1, 5))
         result = round(random.random() * data, 5)
         # just to show off, we throw an exception once in a while
         if result > 5:
@@ -33,22 +33,24 @@ if __name__ == '__main__':
             print request
             print exc_info
             raise SystemExit
-        print "**** Exception occured in request #%s: %s" % \
-          (request.request_id, exc_info)
+        print "**** Exception occured in request #%s: %s" % (
+            request.request_id,
+            exc_info,
+        )
 
     # assemble the arguments for each job to a list...
-    data = [random.randint(1,10) for i in range(20)]
+    data = [random.randint(1, 10) for i in range(20)]
     # ... and build a WorkRequest object for each item in data
     requests = make_requests(do_something, data, print_result, handle_exception)
     # to use the default exception handler, uncomment next line and comment out
     # the preceding one.
-    #requests = makeRequests(do_something, data, print_result)
+    # requests = makeRequests(do_something, data, print_result)
 
     # or the other form of args_lists accepted by makeRequests: ((,), {})
-    data = [((random.randint(1,10),), {}) for i in range(20)]
+    data = [((random.randint(1, 10),), {}) for i in range(20)]
     requests.extend(
         make_requests(do_something, data, print_result, handle_exception)
-        #makeRequests(do_something, data, print_result)
+        # makeRequests(do_something, data, print_result)
         # to use the default exception handler, uncomment next line and comment
         # out the preceding one.
     )
@@ -76,7 +78,7 @@ if __name__ == '__main__':
             time.sleep(0.5)
             main.poll()
             print "Main thread working...",
-            print "(active worker threads: %i)" % (threading.activeCount()-1, )
+            print "(active worker threads: %i)" % (threading.activeCount() - 1,)
             if i == 10:
                 print "**** Adding 3 more worker threads..."
                 main.create_workers(3)
@@ -93,4 +95,3 @@ if __name__ == '__main__':
     if main.dismissed_workers:
         print "Joining all dismissed worker threads..."
         main.join_all_dismissed_workers()
-

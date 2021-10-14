@@ -15,7 +15,14 @@ class Logger2:
 
     def write(self, *args):
         tgmt = time.gmtime()
-        tstring = "%02d/%02d/%02d GMT %02d:%02d:%02d" % (tgmt[2], tgmt[1], tgmt[0], tgmt[3], tgmt[4], tgmt[5])
+        tstring = "%02d/%02d/%02d GMT %02d:%02d:%02d" % (
+            tgmt[2],
+            tgmt[1],
+            tgmt[0],
+            tgmt[3],
+            tgmt[4],
+            tgmt[5],
+        )
         tstring += " " + str(os.getpid())
         for arg in args:
             if type(arg) == type((1,)):

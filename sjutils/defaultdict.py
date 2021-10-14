@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class DefaultDict(dict):
     """Trivial DefaultDict implementation. Basically returns the
     default value for missing keys.
@@ -7,7 +8,7 @@ class DefaultDict(dict):
     TODO: Python2.5 has __missing__ for dict subclasses, we should use
     this (or collections.defaultdict) instead when switching to 2.5"""
 
-    def __init__(self, default = None, *args, **kw):
+    def __init__(self, default=None, *args, **kw):
         dict.__init__(self, *args, **kw)
         self.default = default
 

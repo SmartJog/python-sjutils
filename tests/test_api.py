@@ -4,36 +4,37 @@
 import unittest
 import sjutils
 
-class TestAPI(unittest.TestCase):
 
+class TestAPI(unittest.TestCase):
     def test_compat(self):
-        """ Backward compatibility test. """
+        """Backward compatibility test."""
 
         api = (
             # from defaultdict
-            'DefaultDict',
+            "DefaultDict",
             # from logger2
-            'Logger2',
+            "Logger2",
             # from loggeradapter
-            'LoggerAdapter',
+            "LoggerAdapter",
             # from pgconnmanager
-            'PgConnManager',
-            'PgConnProxy',
-            'manage_pgconn',
-            'manage_pgconn_conf',
+            "PgConnManager",
+            "PgConnProxy",
+            "manage_pgconn",
+            "manage_pgconn_conf",
             # from threadpool
-            'threadpool',
+            "threadpool",
             # from utils
-            'all',
-            'any',
-            'flatten_dict',
-            'flatten_list',
-            'html_entity_fixer',
-            'html_escape',
-            'pretty_size',
+            "all",
+            "any",
+            "flatten_dict",
+            "flatten_list",
+            "html_entity_fixer",
+            "html_escape",
+            "pretty_size",
         )
 
         self.assertTrue(set(dir(sjutils)).issuperset(api))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -12,7 +12,7 @@ class OrderedRawConfigParser(ConfigParser.RawConfigParser):
         if self._defaults:
             fp.write("[%s]\n" % ConfigParser.DEFAULTSECT)
             for (key, value) in self._defaults.items():
-                fp.write("%s = %s\n" % (key, str(value).replace('\n', '\n\t')))
+                fp.write("%s = %s\n" % (key, str(value).replace("\n", "\n\t")))
             fp.write("\n")
         tmp_sections = self._sections.keys()
         tmp_sections.sort()
@@ -22,8 +22,10 @@ class OrderedRawConfigParser(ConfigParser.RawConfigParser):
             tmp_keys.sort()
             for key in tmp_keys:
                 if key != "__name__":
-                    fp.write("%s = %s\n" %
-                             (key, str(self._sections[section][key]).replace('\n', '\n\t')))
+                    fp.write(
+                        "%s = %s\n"
+                        % (key, str(self._sections[section][key]).replace("\n", "\n\t"))
+                    )
             fp.write("\n")
 
 

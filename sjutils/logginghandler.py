@@ -7,11 +7,21 @@ import codecs
 
 from logging.handlers import BaseRotatingHandler
 
-class CompressedRotatingFileHandler(BaseRotatingHandler):
 
-    def __init__(self, filename, mode='a', max_bytes=256, backup_count=5, encoding=None, cmp_type='gzip', cmp_level=9, suffixes='gz'):
+class CompressedRotatingFileHandler(BaseRotatingHandler):
+    def __init__(
+        self,
+        filename,
+        mode="a",
+        max_bytes=256,
+        backup_count=5,
+        encoding=None,
+        cmp_type="gzip",
+        cmp_level=9,
+        suffixes="gz",
+    ):
         if max_bytes > 0:
-            mode = 'a'
+            mode = "a"
         BaseRotatingHandler.__init__(self, filename, mode, encoding)
         self.filename = filename
         self.backup_count = backup_count
@@ -21,24 +31,24 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
         self.suffixes = suffixes
 
     def _doCompress(self, target):
-        if self.cmp_type is 'gzip':
-            f_in = open(target, 'r')
-            f_out = gzip.open(target + '.tmp', 'w', compresslevel=self.cmp_level)
+        if self.cmp_type is "gzip":
+            f_in = open(target, "r")
+            f_out = gzip.open(target + ".tmp", "w", compresslevel=self.cmp_level)
             f_out.writelines(f_in)
             f_out.close()
             f_in.close()
             os.remove(target)
-            os.rename(target + '.tmp', target)
-        elif self.cmp_type is 'bzip2':
-            f_in = open(target, 'r')
-            f_out = bz2.BZ2File(target + '.tmp', 'w', compresslevel=self.cmp_level)
+            os.rename(target + ".tmp", target)
+        elif self.cmp_type is "bzip2":
+            f_in = open(target, "r")
+            f_out = bz2.BZ2File(target + ".tmp", "w", compresslevel=self.cmp_level)
             f_out.writelines(f_in)
             f_out.close()
             f_in.close()
             os.remove(target)
-            os.rename(target + '.tmp', target)
+            os.rename(target + ".tmp", target)
         else:
-            raise Exception('Compression type not supported')
+            raise Exception("Compression type not supported")
 
     def doRollover(self):
         self.stream.close()
@@ -56,15 +66,14 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
             os.rename(self.baseFilename, dfn)
             self._doCompress(dfn)
         if self.encoding:
-            self.stream = codecs.open(self.baseFilename, 'w', self.encoding)
+            self.stream = codecs.open(self.baseFilename, "w", self.encoding)
         else:
-            self.stream = open(self.baseFilename, 'w')
+            self.stream = open(self.baseFilename, "w")
 
     def shouldRollover(self, record):
         if self.max_bytes > 0:
             msg = "%s\n" % self.format(record)
-            self.stream.seek(0, 2)  #due to non-posix-compliant Windows feature
+            self.stream.seek(0, 2)  # due to non-posix-compliant Windows feature
             if self.stream.tell() + len(msg) >= self.max_bytes:
                 return 1
         return 0
-

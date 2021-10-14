@@ -1,5 +1,6 @@
 # Imported from python 2.6
 
+
 class LoggerAdapter:
     """
     An adapter for loggers which makes it easier to specify contextual

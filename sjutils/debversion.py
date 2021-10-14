@@ -8,9 +8,9 @@ class DebianVersion(object):
     Class to compare Debian package version number format
     """
 
-    pattern = re.compile(r'^(?:(\d+):)?'
-                         '(\d[0-9a-zA-Z.+:~-]*?)'
-                         '(?:-([0-9a-zA-Z+.~]+))?$')
+    pattern = re.compile(
+        r"^(?:(\d+):)?" "(\d[0-9a-zA-Z.+:~-]*?)" "(?:-([0-9a-zA-Z+.~]+))?$"
+    )
 
     def __init__(self, str_version):
         matches = DebianVersion.pattern.findall(str_version)
@@ -39,8 +39,8 @@ def vercmp(lhs, rhs):
     """
     Compare version according to sorting algorithm (see 'man deb-version')
     """
-    digitregex = re.compile(r'^([0-9]*)(.*)$')
-    nondigitregex = re.compile(r'^([^0-9]*)(.*)$')
+    digitregex = re.compile(r"^([0-9]*)(.*)$")
+    nondigitregex = re.compile(r"^([^0-9]*)(.*)$")
 
     digits = True
     while lhs or rhs:
@@ -94,10 +94,11 @@ def debver_array(str_version, size):
     a = [0] * size
     for i, char in enumerate(str_version):
         char = ord(char)
-        if ((char >= ord('a') and char <= ord('z')) or
-            (char >= ord('A') and char <= ord('Z'))):
+        if (char >= ord("a") and char <= ord("z")) or (
+            char >= ord("A") and char <= ord("Z")
+        ):
             a[i] = char
-        elif char == ord('~'):
+        elif char == ord("~"):
             a[i] = -1
         else:
             a[i] = char + 256

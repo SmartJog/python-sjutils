@@ -13,7 +13,8 @@ def pretty_size(size, verbose=False):
     @return A string representing the size in human readable form.
     """
     import gettext
-    gettext.install('python-sjutils')
+
+    gettext.install("python-sjutils")
     base = _("Bytes")
     for unit in ["", "Kilo", "Mega", "Giga", "Tera", "Peta", "Exa", "Zetta", "Yotta"]:
         if verbose:
@@ -23,22 +24,24 @@ def pretty_size(size, verbose=False):
 
         if size < 1024.0:
             import math
+
             if math.floor(size) == size:
                 return "%d %s" % (int(size), final_unit)
             else:
                 return "%3.1f %s" % (size, final_unit)
 
-        if (unit != "Yotta"):
+        if unit != "Yotta":
             size /= 1024.0
 
     return "%3.1f %s" % (size, final_unit)
+
 
 entitydefs_inverted = {}
 for k, v in entitydefs.items():
     entitydefs_inverted[v] = k
 
-_badchars_regex = re.compile('|'.join(entitydefs.values()))
-_been_fixed_regex = re.compile('&\w+;|&#[0-9]+;')
+_badchars_regex = re.compile("|".join(entitydefs.values()))
+_been_fixed_regex = re.compile("&\w+;|&#[0-9]+;")
 
 
 def html_entity_fixer(text, skipchars=[], extra_careful=1):
@@ -47,22 +50,22 @@ def html_entity_fixer(text, skipchars=[], extra_careful=1):
     if extra_careful and _been_fixed_regex.findall(text):
         return text
 
-    if type(skipchars) == type('s'):
+    if type(skipchars) == type("s"):
         skipchars = [skipchars]
 
     keyholder = []
     for char in _badchars_regex.findall(text):
         if char not in skipchars:
             keyholder.append(char)
-    text = text.replace('&', '&amp;')
-    text = text.replace('\x80', '&#8364;')
+    text = text.replace("&", "&amp;")
+    text = text.replace("\x80", "&#8364;")
     for each in keyholder:
-        if each == '&':
+        if each == "&":
             continue
 
         better = entitydefs_inverted[each]
-        if not better.startswith('&#'):
-            better = '&%s;' % entitydefs_inverted[each]
+        if not better.startswith("&#"):
+            better = "&%s;" % entitydefs_inverted[each]
 
         text = text.replace(each, better)
     return text
@@ -73,22 +76,21 @@ def html_escape(text):
     Escape HTML characters / entities in @text.
     """
     # We start by replacing '&'
-    text = text.replace('&', '&amp;')
+    text = text.replace("&", "&amp;")
 
     if isinstance(text, unicode):
         # We use this to avoid UnicodeDecodeError in text.replace()
-        convert = lambda x: x.decode('iso-8859-1')
+        convert = lambda x: x.decode("iso-8859-1")
     else:
         convert = lambda x: x
 
     # We don't want '&' in our dict, as it would mess up any previous
     # replace() we'd done
-    entitydefs_inverted = ((convert(value), key)
-                           for key, value
-                           in entitydefs.iteritems()
-                           if value != '&')
+    entitydefs_inverted = (
+        (convert(value), key) for key, value in entitydefs.iteritems() if value != "&"
+    )
     for key, value in entitydefs_inverted:
-        text = text.replace(key, '&%s;' % value)
+        text = text.replace(key, "&%s;" % value)
     return text
 
 
@@ -108,7 +110,7 @@ def all(iterable, predicate=bool, *args, **kw):
     return True
 
 
-def flatten_dict(dictionary, sep='/'):
+def flatten_dict(dictionary, sep="/"):
     """
     Flatten a Python dictionary, in an iterative way (no stack
     overflow)
@@ -128,7 +130,12 @@ def flatten_dict(dictionary, sep='/'):
     while my_stack:
         key, value = my_stack.pop()
         if isinstance(value, dict):
-            my_stack.extend([(key + sep + inner_key, inner_value) for inner_key, inner_value in value.iteritems()])
+            my_stack.extend(
+                [
+                    (key + sep + inner_key, inner_value)
+                    for inner_key, inner_value in value.iteritems()
+                ]
+            )
         else:
             result[key] = value
 
@@ -159,6 +166,7 @@ def flatten_list(my_list):
 
     # We use collections.deque for fast pop(0) / insert(0, v)
     from collections import deque
+
     my_stack = deque(my_list)
     result = []
 
@@ -185,6 +193,7 @@ def paginate(iterable, pagesize):
     """
 
     import itertools
+
     counter = itertools.count()
 
     def key_function(_elt):

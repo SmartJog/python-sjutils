@@ -1,29 +1,30 @@
 # -*- coding: utf-8 -*-
 
+
 class TextDecoration(object):
     """Allows to decorate text in a terminal."""
 
     # styles
-    NOSTYLE = '0'
-    BOLDED = '1'
-    DARKENED = '2'
-    UNDERLINED = '4'
-    STRIKED = '9'
+    NOSTYLE = "0"
+    BOLDED = "1"
+    DARKENED = "2"
+    UNDERLINED = "4"
+    STRIKED = "9"
 
     # modes
-    NORMAL = '3'
-    BACKGROUND = '4'
-    LIGHTENED = '9'
+    NORMAL = "3"
+    BACKGROUND = "4"
+    LIGHTENED = "9"
 
     # colors
-    WHITE = ''
-    GREY = '0' # BLACK if darkened
-    RED = '1'
-    GREEN = '2'
-    YELLOW = '3'
-    BLUE = '4'
-    PURPLE = '5'
-    CYAN = '6'
+    WHITE = ""
+    GREY = "0"  # BLACK if darkened
+    RED = "1"
+    GREEN = "2"
+    YELLOW = "3"
+    BLUE = "4"
+    PURPLE = "5"
+    CYAN = "6"
 
     def __init__(self, style=NOSTYLE, mode=NORMAL, color=WHITE, enabled=True):
         self._enabled = enabled
@@ -34,8 +35,8 @@ class TextDecoration(object):
     def reset(self):
         """Fakes resetting decorations to default."""
         if not self._enabled:
-            return ''
-        return '\033[0m'
+            return ""
+        return "\033[0m"
 
     def set_text_style(self, style):
         """Set the text style."""
@@ -74,5 +75,5 @@ class TextDecoration(object):
     def get(self):
         """Return the ansi escape sequence using the style, mode and color set."""
         if not self._enabled:
-            return ''
-        return '\033[%s;%s%sm' % (self._style, self._mode, self._color)
+            return ""
+        return "\033[%s;%s%sm" % (self._style, self._mode, self._color)

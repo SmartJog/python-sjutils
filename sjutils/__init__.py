@@ -10,9 +10,21 @@ try:
 except ImportError:
     from sjutils.loggeradapter import LoggerAdapter
 
-from sjutils.pgconnmanager import PgConnManager, PgConnProxy, manage_pgconn, manage_pgconn_conf
+from sjutils.pgconnmanager import (
+    PgConnManager,
+    PgConnProxy,
+    manage_pgconn,
+    manage_pgconn_conf,
+)
 
 import sjutils.threadpool
 
-from sjutils.utils import pretty_size, html_entity_fixer, html_escape, any, all, flatten_dict, flatten_list
-
+from sjutils.utils import (
+    pretty_size,
+    html_entity_fixer,
+    html_escape,
+    any,
+    all,
+    flatten_dict,
+    flatten_list,
+)
