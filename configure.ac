@@ -18,8 +18,8 @@ AC_CONFIG_FILES([
 	sjutils/Makefile
 	tests/Makefile
 	locale/Makefile
-	locale/en/LC_MESSAGES/python-sjutils.po
-	locale/fr/LC_MESSAGES/python-sjutils.po
+	locale/en/LC_MESSAGES/python3-sjutils.po
+	locale/fr/LC_MESSAGES/python3-sjutils.po
 ])
 
 AC_OUTPUT

@@ -12,7 +12,7 @@ def pretty_size(size, verbose=False):
     """
     import gettext
 
-    gettext.install("python-sjutils")
+    gettext.install("python3-sjutils")
     base = _("Bytes")
     for unit in ["", "Kilo", "Mega", "Giga", "Tera", "Peta", "Exa", "Zetta", "Yotta"]:
         if verbose:

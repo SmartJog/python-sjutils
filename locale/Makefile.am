@@ -1,6 +1,6 @@
 nobase_locales_DATA = \
-	en/LC_MESSAGES/python-sjutils.mo \
-	fr/LC_MESSAGES/python-sjutils.mo
+	en/LC_MESSAGES/python3-sjutils.mo \
+	fr/LC_MESSAGES/python3-sjutils.mo
 
 SUFFIXES: .po
 
