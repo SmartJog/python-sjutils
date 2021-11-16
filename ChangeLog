@@ -1,4 +1,4 @@
-Version 1.25.1~dev
+Version 2.0.0 Released on 2021/11/16
 
 	* Port to Python3
 	* Remove the unused debversion utility
