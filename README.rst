@@ -52,19 +52,19 @@ python-sjutils was started at SmartJog by Romain Degez.
 Various employees and interns from SmartJog fixed bugs and added features since
 then.
 
-* Alexandre Bossard <alexandre.bossard@smartjog.com>
-* Frédéric Julian <frederic.julian@smartjog.com>
-* Gilles Dartiguelongue <gilles.dartiguelongue@smartjog.com>
-* Guillaume Camera <guillaume.camera@smartjog.com>
-* Jean-Philippe Garcia Ballester <jeanphilippe.garciaballester@smartjog.com>
-* Laurent Corbes <laurent.corbes@smartjog.com>
-* Laurent Defert <laurent.defert@smartjog.com>
-* Matthieu Bouron <matthieu.bouron@smartjog.com>
-* Nicolas Noirbent <nicolas.noirbent@smartjog.com>
-* Philippe Bridant <philippe.bridant@smartjog.com>
-* Rémi Cardona <remi.cardona@smartjog.com>
-* Romain Degez <romain.degez@smartjog.com>
-* Stéphane Kanschine <stephane.kanschine@smartjog.com>
-* Thomas Meson <thomas.meson@smartjog.com>
-* Thomas Souvignet <thomas.souvignet@smartjog.com>
+* Alexandre Bossard
+* Frédéric Julian
+* Gilles Dartiguelongue
+* Guillaume Camera
+* Jean-Philippe Garcia Ballester
+* Laurent Corbes
+* Laurent Defert
+* Matthieu Bouron
+* Nicolas Noirbent
+* Philippe Bridant
+* Rémi Cardona
+* Romain Degez
+* Stéphane Kanschine
+* Thomas Meson
+* Thomas Souvignet
 
