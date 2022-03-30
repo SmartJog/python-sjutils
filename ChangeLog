@@ -1,6 +1,7 @@
 Version 2.0.1~dev
 
 	* Fix some syntax warnings
+	* Fix compat with PEP 479 (so Python >= 3.7)
 
 Version 2.0.0 Released on 2021/11/16
 

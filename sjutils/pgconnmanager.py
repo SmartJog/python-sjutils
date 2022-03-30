@@ -346,7 +346,7 @@ class PgConnManager:
         while True:
             results = self.fetchmany(ctx)
             if not results:
-                raise StopIteration
+                return
             for result in results:
                 yield result
 
