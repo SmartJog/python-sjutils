@@ -1,4 +1,4 @@
-Version 2.0.1~dev
+Version 2.0.1 Released on 2022/03/30
 
 	* Fix some syntax warnings
 	* Fix compat with PEP 479 (so Python >= 3.7)
