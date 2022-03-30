@@ -29,7 +29,7 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
         self.suffixes = suffixes
 
     def _doCompress(self, target):
-        if self.cmp_type is "gzip":
+        if self.cmp_type == "gzip":
             f_in = open(target, "r")
             f_out = gzip.open(target + ".tmp", "w", compresslevel=self.cmp_level)
             f_out.writelines(f_in)
@@ -37,7 +37,7 @@ class CompressedRotatingFileHandler(BaseRotatingHandler):
             f_in.close()
             os.remove(target)
             os.rename(target + ".tmp", target)
-        elif self.cmp_type is "bzip2":
+        elif self.cmp_type == "bzip2":
             f_in = open(target, "r")
             f_out = bz2.BZ2File(target + ".tmp", "w", compresslevel=self.cmp_level)
             f_out.writelines(f_in)
