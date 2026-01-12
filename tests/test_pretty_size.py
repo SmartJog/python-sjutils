@@ -8,7 +8,7 @@ class TestPrettySize(unittest.TestCase):
     def setUp(self):
         self.size_37B = 37
         self.size_3MB = 3 * 1024 * 1024 + 23
-        self.size_4YB = 4 * 1024 ** 8
+        self.size_4YB = 4 * 1024**8
 
     def test_3MB(self):
         self.assertEqual(sjutils.pretty_size(self.size_3MB), "3.0 MB")

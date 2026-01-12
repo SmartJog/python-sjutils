@@ -5,6 +5,7 @@ import time
 
 class Logger2:
     "Sjutils log class"
+
     _file = ""
     _label = ""
 

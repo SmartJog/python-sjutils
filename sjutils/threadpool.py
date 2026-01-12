@@ -2,7 +2,7 @@
 # Available under the MIT license
 # Change variable namings to fit a bit more with PEP 8
 
-""" Easy to use object-oriented thread pool framework.
+"""Easy to use object-oriented thread pool framework.
 
 A thread pool is an object that maintains a pool of worker threads to perform
 time consuming operations in parallel. It assigns jobs to the threads
@@ -326,7 +326,7 @@ class ThreadPool:
         # don't reuse old work requests
         assert not getattr(request, "exception", None)
         # make sure we don't queue the same id twice
-        if not request.request_id in self.work_requests:
+        if request.request_id not in self.work_requests:
             self._requests_queue.put(request, block, timeout)
         self.work_requests[request.request_id] = request
 

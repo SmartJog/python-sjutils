@@ -102,9 +102,9 @@ class PgConnManager:
     def __init__(self, db_opts):
         self.__params__ = db_opts
         if "isolation_level" not in self.__params__:
-            self.__params__[
-                "isolation_level"
-            ] = psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED
+            self.__params__["isolation_level"] = (
+                psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED
+            )
         if not hasattr(self, "__conn_pool__"):
             self.__conn_pool__ = None
 

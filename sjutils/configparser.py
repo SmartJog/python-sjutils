@@ -9,7 +9,7 @@ class OrderedRawConfigParser(configparser.RawConfigParser):
         state. Sections are written sorted."""
         if self._defaults:
             fp.write("[%s]\n" % configparser.DEFAULTSECT)
-            for (key, value) in list(self._defaults.items()):
+            for key, value in list(self._defaults.items()):
                 fp.write("%s = %s\n" % (key, str(value).replace("\n", "\n\t")))
             fp.write("\n")
         tmp_sections = list(self._sections.keys())
