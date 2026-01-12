@@ -1,3 +1,9 @@
+python-sjutils (2.0.2~dev-1) UNRELEASED; urgency=medium
+
+  * New upstream version
+
+ -- Nicolas Delvaux <nicolas.delvaux@cji.paris>  Mon, 12 Jan 2026 17:21:25 +0100
+
 python-sjutils (2.0.1-1) unstable; urgency=medium
 
   * New upstream version

@@ -1,6 +1,6 @@
 AC_PREREQ(2.67)
 
-AC_INIT([python-sjutils],[2.0.1])
+AC_INIT([python-sjutils],[2.0.2~dev])
 
 AM_INIT_AUTOMAKE([foreign])
 
